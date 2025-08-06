@@ -23,7 +23,7 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('auth.login');
 });
 
 Route::get('/dashboard', function () {
@@ -68,7 +68,7 @@ Route::middleware(['auth', 'penjual'])->prefix('penjual')->name('penjual.')->gro
     Route::post('/produk/store', [PenjualProdukController::class, 'store'])->name('produk.store');
     Route::get('/produk/{produk}/edit', [PenjualProdukController::class, 'edit'])->name('produk.edit');
     Route::put('/produk/{produk}', [PenjualProdukController::class, 'update'])->name('produk.update');
-    Route::delete('/produk/{id}', [PenjualProdukController::class, 'destroy'])->name('produk.destroy');
+    Route::delete('/produk/{produk}', [PenjualProdukController::class, 'destroy'])->name('produk.destroy');
 
     // Produk yang disetujui / ditolak oleh admin
     Route::get('/produk/disetujui', [PenjualProdukController::class, 'disetujui'])->name('produk.disetujui');

@@ -8,32 +8,32 @@
             @csrf
 
             <div class="mb-4">
-                <label class="block">Nama Produk</label>
+                <label class="block text-white">Nama Produk</label>
                 <input type="text" name="nama_produk" class="w-full border px-3 py-2 rounded">
             </div>
 
             <div class="mb-4">
-                <label class="block">Deskripsi</label>
+                <label class="block text-white">Deskripsi</label>
                 <textarea name="deskripsi" class="w-full border px-3 py-2 rounded"></textarea>
             </div>
 
             <div class="mb-4">
-                <label class="block">Harga</label>
+                <label class="block text-white">Harga</label>
                 <input type="number" name="harga" class="w-full border px-3 py-2 rounded" min="0">
             </div>
 
-            <div class="mb-4">
-                <label class="block">Foto</label>
+            <div class="mb-4 text-white">
+                <label class="block text-white">Foto</label>
                 <input type="file" name="foto" class="w-full">
             </div>
 
             <div class="mb-4">
-                <label class="block">Stok</label>
+                <label class="block text-white">Stok</label>
                 <input type="number" name="stok" class="w-full border px-3 py-2 rounded">
             </div>
 
             <div class="mb-4">
-                <label class="block">Lokasi</label>
+                <label class="block text-white">Lokasi</label>
                 <input type="text" name="lokasi" class="w-full border px-3 py-2 rounded">
             </div>
 

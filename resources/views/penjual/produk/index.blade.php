@@ -51,10 +51,9 @@
                                     </td>
                                     <td class="px-4 py-2">{{ $produk->stok }}</td>
                                     <td class="px-4 py-2 space-y-1">
-                                        <a href="#" class="bg-blue-500 hover:bg-blue-600 text-white px-3 py-1 rounded">Detail</a>
                                         @if(in_array($produk->status, ['rejected', 'pending']))
                                             <a href="{{ route('penjual.produk.edit', $produk->id) }}" class="bg-yellow-400 hover:bg-yellow-500 text-black px-3 py-1 rounded">Edit</a>
-                                            <form action="{{ route('penjual.produk.destroy', $produk->id) }}" method="POST" onsubmit="return confirm('Yakin ingin menghapus produk ini?')" class="inline">
+                                            <form action="{{ route('penjual.produk.destroy', $produk) }}" method="POST" onsubmit="return confirm('Yakin ingin menghapus produk ini?')" class="inline">
                                                 @csrf
                                                 @method('DELETE')
                                                 <button type="submit" class="bg-red-500 hover:bg-red-600 text-white px-3 py-1 rounded">Hapus</button>

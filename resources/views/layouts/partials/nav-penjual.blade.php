@@ -1,4 +1,4 @@
-<nav class="bg-yellow-200 text-gray-800 shadow-md border-b border-gray-300">
+<nav class="bg-[#FAE3AC] text-gray-800 shadow-md border-b border-gray-300">
     <div class="max-w-7xl mx-auto px-6 py-4 flex justify-between items-center">
         <!-- Logo dan Navigasi -->
         <div class="flex items-center gap-10">

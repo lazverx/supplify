@@ -1,14 +1,28 @@
-<nav class="bg-white border-b border-gray-200 px-4 py-3 shadow">
-    <div class="max-w-7xl mx-auto flex justify-between items-center">
-        <div class="text-lg font-semibold">Marketplace</div>
-        <div class="space-x-4">
-            <a href="{{ route('pembeli.dashboard') }}" class="text-gray-700 hover:text-blue-600">Beranda</a>
-            <a href="{{ route('pembeli.marketplace.index') }}" class="text-gray-700 hover:text-blue-600">Produk</a>
-            <a href="{{ route('pembeli.transaksi.index') }}" class="text-gray-700 hover:text-blue-600">Riwayat Pembelian</a>
-            <form method="POST" action="{{ route('logout') }}" class="inline">
-                @csrf
-                <button type="submit" class="text-red-600 hover:text-red-800">Logout</button>
-            </form>
+<nav class="bg-[#FAE3AC] text-gray-800 shadow-md border-b border-gray-300">
+    <div class="max-w-7xl mx-auto px-6 py-4 flex justify-between items-center">
+        <!-- Logo dan Navigasi -->
+        <div class="flex items-center gap-10">
+            <!-- Logo -->
+            <div class="flex items-center gap-2">
+                <img src="{{ asset('image/logo-supplify.png') }}" alt="Supplify Logo" class="h-[50px] w-[50px] rounded-full">
+                <!-- <span class="font-bold text-lg">Supplify</span> -->
+            </div>
+
+            <!-- Menu Navigasi -->
+            <div class="flex gap-6 font-semibold">
+                <a href="{{ route('pembeli.dashboard') }}" class="hover:text-blue-700">Dashboard</a>
+                <a href="{{ route('pembeli.marketplace.index') }}" class="hover:text-blue-700">Marketplace</a>
+                <a href="{{ route('pembeli.transaksi.index') }}" class="hover:text-blue-700">Transaksi</a>
+               {{-- <a href="{{ route('pembeli.produk.favorit') }}" class="hover:text-blue-700">Produk Favorit</a> --}}
+            </div>
         </div>
+
+        <!-- Tombol Logout -->
+        <form method="POST" action="{{ route('logout') }}">
+            @csrf
+            <button type="submit" class="bg-white text-yellow-600 px-4 py-1 rounded-full font-semibold shadow hover:bg-gray-100 transition">
+                Logout
+            </button>
+        </form>
     </div>
 </nav>
