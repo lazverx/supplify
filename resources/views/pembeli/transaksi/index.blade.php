@@ -23,7 +23,7 @@
                     <tbody>
                         @foreach ($transaksis as $transaksi)
                             <tr class="border-b dark:border-gray-700">
-                                <td>{{ $transaksi->produk->nama }}</td>
+                                <td>{{ $transaksi->produk->nama_produk }}</td>
                                 <td>{{ $transaksi->jumlah }}</td>
                                 <td>Rp {{ number_format($transaksi->total_harga, 0, ',', '.') }}</td>
                                 <td>

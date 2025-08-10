@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\CartController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\ProdukController as AdminProdukController;
@@ -85,19 +86,27 @@ Route::middleware(['auth' , 'pembeli'])->prefix('pembeli')->name('pembeli.')->gr
     Route::get('/dashboard', fn () => view('pembeli.dashboard'))->name('dashboard');
 
     Route::get('/marketplace', [MarketplaceController::class, 'index'])->name('marketplace.index');
+    Route::get('/marketplace/produk/{produk}', [MarketplaceController::class, 'show'])->name('marketplace.show');
 
-    Route::get('/marketplace/produk/{id}', [MarketplaceController::class, 'show'])->name('marketplace.show');
+    // Dari marketplace → buat transaksi → redirect checkout
+    Route::get('/transaksi/bayar/{produk}', [TransaksiSimulasiController::class, 'bayar'])->name('transaksi.bayar');
 
-    Route::get('/transaksi/checkout/{produk}', [TransaksiPembeliController::class, 'checkout'])->name('transaksi.checkout');
-    Route::get('/transaksi/bayar/{produk}', [TransaksiPembeliController::class, 'bayar'])->name('transaksi.bayar');
+    Route::get('/transaksi', [TransaksiPembeliController::class, 'index'])->name('transaksi.index');
+    Route::get('/transaksi/checkout/{produk}', [TransaksiSimulasiController::class, 'checkout'])->name('transaksi.checkout');
+
+    Route::post('/transaksi/bayar', [TransaksiSimulasiController::class, 'bayar'])->name('transaksi.bayar');
 
 
-    Route::get('/transaksi',[TransaksiPembeliController::class, 'index'])->name('transaksi.index');
+    // Simulasi update status
+    Route::get('/transaksi/status/{transaksi}', [TransaksiSimulasiController::class, 'status'])->name('transaksi.status');
 
-    // Simulasi Transaksi
-    Route::post('/transaksi/{id}/bayar', [TransaksiSimulasiController::class, 'bayar'])->name('transaksi.bayar');
-    Route::get('/transaksi/{id}/status', [TransaksiSimulasiController::class, 'status'])->name('transaksi.status');
+    // Route untuk cart produk
+    Route::get('/cart', [CartController::class, 'index'])->name('cart.index');
+    Route::post('/cart', [CartController::class, 'store'])->name('cart.store');
+    Route::delete('/cart/{id}', [CartController::class, 'destroy'])->name('cart.destroy');
+    Route::post('/cart/checkout', [CartController::class, 'checkout'])->name('cart.checkout');
 });
+
 
 
 

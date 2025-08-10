@@ -12,6 +12,7 @@
             <div class="flex gap-6 font-semibold">
                 <a href="{{ route('pembeli.dashboard') }}" class="hover:text-blue-700">Dashboard</a>
                 <a href="{{ route('pembeli.marketplace.index') }}" class="hover:text-blue-700">Marketplace</a>
+                <a href="{{ route('pembeli.cart.index') }}" class="hover:text-blue-700">Keranjang</a>
                 <a href="{{ route('pembeli.transaksi.index') }}" class="hover:text-blue-700">Transaksi</a>
                {{-- <a href="{{ route('pembeli.produk.favorit') }}" class="hover:text-blue-700">Produk Favorit</a> --}}
             </div>
