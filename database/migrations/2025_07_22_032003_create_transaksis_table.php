@@ -17,7 +17,7 @@ return new class extends Migration
             $table->foreignId('user_id')->constrained('users')->onDelete('cascade');
             $table->integer('jumlah');
             $table->integer('harga');
-            $table->string('alamat_pengiriman');
+            $table->string('alamat_pengiriman')->default('-');
             $table->enum('status', ['waiting', 'done'])->default('waiting');
             $table->timestamps();
         });

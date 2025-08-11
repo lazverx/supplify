@@ -6,6 +6,7 @@
             <a href="{{ route('admin.users.index') }}" class="text-gray-700 hover:text-blue-600">Users</a>
             <a href="{{ route('admin.produk.index') }}" class="text-gray-700 hover:text-blue-600">Produk</a>
             <a href="{{ route('admin.validasi.log') }}" class="text-gray-700 hover:text-blue-600">Log Produk</a>
+            <a href="{{ route('admin.transaksi.log') }}" class="text-gray-700 hover:text-blue-600">Log Transaksi</a>
             <form method="POST" action="{{ route('logout') }}" class="inline">
                 @csrf
                 <button type="submit" class="text-red-600 hover:text-red-800">Logout</button>

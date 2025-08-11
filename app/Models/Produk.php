@@ -1,11 +1,11 @@
-<?php 
+<?php
 
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use App\Models\User;
 
-class Produk extends Model 
+class Produk extends Model
 {
     protected $table = 'produks';
 
@@ -24,5 +24,9 @@ class Produk extends Model
     {
         return $this->belongsTo(User::class);
     }
+
+    public function penjual()
+    {
+        return $this->belongsTo(User::class, 'user_id');
+    }
 }
-?>

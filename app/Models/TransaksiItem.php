@@ -18,5 +18,5 @@ class TransaksiItem extends Model
     public function transaksi() 
     {
         return $this->belongsTo(Transaksi::class);
-    }
+    } 
 }

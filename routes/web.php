@@ -1,16 +1,22 @@
 <?php
 
-use App\Http\Controllers\CartController;
+// use App\Http\Controllers\CartController;
+
+use App\Http\Controllers\Admin\LogTransaksiController;
+use App\Http\Controllers\Admin\UserController;
+use App\Http\Controllers\Admin\ProdukController as AdminProdukController;
+use App\Http\Controllers\Admin\ValidasiController;
 use App\Http\Controllers\ProfileController;
-use App\Http\Controllers\UserController;
-use App\Http\Controllers\ProdukController as AdminProdukController;
+
 use App\Http\Controllers\Penjual\ProdukController as PenjualProdukController;
-use App\Http\Controllers\ValidasiController;
+use App\Http\Controllers\Penjual\TransaksiController as TransaksiPenjualController;
+
 use App\Http\Controllers\Pembeli\MarketplaceController;
 use App\Http\Controllers\Pembeli\TransaksiController as TransaksiPembeliController;
-use App\Http\Controllers\Penjual\TransaksiController as TransaksiPenjualController;
 use App\Http\Controllers\Pembeli\TransaksiSimulasiController;
+use App\Http\Controllers\Pembeli\CartController;
 use Illuminate\Support\Facades\Route;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -50,6 +56,9 @@ Route::middleware(['auth', 'admin'])->prefix('admin')->name('admin.')->group(fun
     Route::post('/produk/{id}/approve', [ValidasiController::class, 'approve'])->name('validasi.approve');
     Route::post('/produk/{id}/reject', [ValidasiController::class, 'reject'])->name('validasi.reject');
     Route::get('/produk-validasi/log', [ValidasiController::class, 'log'])->name('validasi.log');
+
+    // Manajemen Log Transaksi
+    Route::get('/transaksi/log', [LogTransaksiController::class, 'index'])->name('transaksi.log');
 });
 
 
