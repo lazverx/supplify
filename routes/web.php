@@ -33,7 +33,7 @@ use App\Http\Controllers\Penjual\ProfileController as PenjualProfileController;
 */
 
 Route::get('/', function () {
-    return view('auth.login');
+    return view('landing');
 });
 
 Route::get('/dashboard', function () {
@@ -92,6 +92,7 @@ Route::middleware(['auth', 'penjual'])->prefix('penjual')->name('penjual.')->gro
     // Transaksi - Riwayat Penjualan Produk
     Route::get('/transaksi', [TransaksiPenjualController::class, 'index'])->name('transaksi.index');
 
+    Route::get('/profile', [PenjualProfileController::class, 'index'])->name('profile.index');   
     Route::get('/profile/edit', [PenjualProfileController::class, 'edit'])->name('profile.edit');
     Route::post('/profile/update', [PenjualProfileController::class, 'update'])->name('profile.update');
 });
@@ -121,6 +122,7 @@ Route::middleware(['auth', 'pembeli'])->prefix('pembeli')->name('pembeli.')->gro
     Route::delete('/cart/{id}', [CartController::class, 'destroy'])->name('cart.destroy');
     Route::post('/cart/checkout', [CartController::class, 'checkout'])->name('cart.checkout');
 
+    Route::get('/profile', [PembeliProfileController::class, 'index'])->name('profile.index');
     Route::get('/profile/edit', [PembeliProfileController::class, 'edit'])->name('profile.edit');
     Route::post('/profile/update', [PembeliProfileController::class, 'update'])->name('profile.update');
 });

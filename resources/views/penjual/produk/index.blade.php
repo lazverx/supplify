@@ -1,62 +1,76 @@
 <x-app-layout>
     <x-slot name="header">
-        <h2 class="text-xl font-semibold text-white">Produk Saya</h2>
+        <h2 class="text-2xl font-bold text-white tracking-wide">
+            Produk Saya
+        </h2>
     </x-slot>
 
-    <div class="max-w-6xl mx-auto px-4 py-8">
-        <!-- CARD WRAPPER -->
-        <div class="bg-[#1E1E3F] text-white rounded-xl shadow-lg p-6">
-            <div class="flex justify-between items-center mb-4">
-                <!-- Search Bar -->
+    <div class="max-w-7xl mx-auto py-8 px-4 sm:px-6 lg:px-8 animate-fadeIn">
+        <div class="bg-[#FAE3AC] shadow-lg rounded-xl p-6 border border-[#2D3250]">
+            
+            {{-- Search & Tambah Produk --}}
+            <div class="flex flex-col md:flex-row justify-between items-center gap-4 mb-6">
                 <form action="{{ route('penjual.produk.index') }}" method="GET" class="flex items-center gap-2">
-                    <input type="text" name="search" placeholder="Search" class="px-3 py-2 rounded bg-white text-black focus:outline-none" />
-                    <button type="submit" class="bg-yellow-400 text-black px-3 py-2 rounded">
+                    <input type="text" name="search" placeholder="Cari produk..."
+                        class="px-4 py-2 rounded-lg bg-white text-[#2D3250] border border-[#2D3250]/40 focus:outline-none focus:ring-2 focus:ring-[#2D3250]" />
+                    <button type="submit"
+                        class="bg-[#2D3250] hover:bg-[#1f233a] text-[#FAE3AC] px-4 py-2 rounded-lg font-semibold transition">
                         🔍
                     </button>
                 </form>
-
-                <!-- Tambah Produk -->
-                <a href="{{ route('penjual.produk.create') }}" class="bg-yellow-400 text-black px-4 py-2 rounded">
-                    Tambah Produk
+                <a href="{{ route('penjual.produk.create') }}"
+                    class="bg-[#2D3250] hover:bg-[#1f233a] text-[#FAE3AC] px-5 py-2 rounded-lg font-semibold transition">
+                    + Tambah Produk
                 </a>
             </div>
 
+            {{-- Tabel Produk --}}
             @if($produks->isEmpty())
-                <div class="text-center py-10 text-white">Kamu belum menambahkan produk.</div>
+                <p class="text-[#2D3250]/70 italic text-center py-8">Kamu belum menambahkan produk.</p>
             @else
-                <div class="overflow-x-auto">
-                    <table class="w-full text-sm bg-white text-black rounded-lg overflow-hidden">
-                        <thead class="bg-gray-200">
+                <div class="overflow-x-auto rounded-lg border border-[#2D3250]/30">
+                    <table class="min-w-full text-sm text-left border-collapse">
+                        <thead class="bg-[#2D3250] text-[#FAE3AC] uppercase text-xs">
                             <tr>
-                                <th class="px-4 py-2">No</th>
-                                <th class="px-4 py-2">Nama Produk</th>
-                                <th class="px-4 py-2">Deskripsi</th>
-                                <th class="px-4 py-2">Foto Produk</th>
-                                <th class="px-4 py-2">Stok</th>
-                                <th class="px-4 py-2">Aksi</th>
+                                <th class="px-4 py-3">No</th>
+                                <th class="px-4 py-3">Nama Produk</th>
+                                <th class="px-4 py-3">Deskripsi</th>
+                                <th class="px-4 py-3">Foto Produk</th>
+                                <th class="px-4 py-3">Stok</th>
+                                <th class="px-4 py-3">Aksi</th>
                             </tr>
                         </thead>
-                        <tbody>
+                        <tbody class="bg-white">
                             @foreach($produks as $index => $produk)
-                                <tr class="text-center border-t">
-                                    <td class="px-4 py-2">{{ $index + 1 }}</td>
-                                    <td class="px-4 py-2">{{ $produk->nama_produk }}</td>
-                                    <td class="px-4 py-2 max-w-xs truncate">{{ $produk->deskripsi }}</td>
-                                    <td class="px-4 py-2">
+                                <tr class="hover:bg-[#FAE3AC]/40 transition-colors">
+                                    <td class="px-4 py-3 text-[#2D3250]">{{ $index + 1 }}</td>
+                                    <td class="px-4 py-3 font-medium text-[#2D3250]">{{ $produk->nama_produk }}</td>
+                                    <td class="px-4 py-3 text-[#2D3250]/80 max-w-xs truncate">
+                                        {{ $produk->deskripsi }}
+                                    </td>
+                                    <td class="px-4 py-3">
                                         @if($produk->foto)
-                                            <img src="{{ asset('storage/' . $produk->foto) }}" alt="Foto Produk" class="h-16 mx-auto rounded" />
+                                            <img src="{{ asset('storage/' . $produk->foto) }}" alt="Foto Produk"
+                                                class="w-20 h-20 object-cover rounded-lg border border-[#2D3250] shadow-sm mx-auto">
                                         @else
-                                            <span class="text-gray-500 italic">Belum ada</span>
+                                            <span class="text-gray-400 italic">Belum ada</span>
                                         @endif
                                     </td>
-                                    <td class="px-4 py-2">{{ $produk->stok }}</td>
-                                    <td class="px-4 py-2 space-y-1">
+                                    <td class="px-4 py-3 text-[#2D3250]">{{ $produk->stok }}</td>
+                                    <td class="px-4 py-3 space-y-1">
                                         @if(in_array($produk->status, ['rejected', 'pending']))
-                                            <a href="{{ route('penjual.produk.edit', $produk->id) }}" class="bg-yellow-400 hover:bg-yellow-500 text-black px-3 py-1 rounded">Edit</a>
-                                            <form action="{{ route('penjual.produk.destroy', $produk) }}" method="POST" onsubmit="return confirm('Yakin ingin menghapus produk ini?')" class="inline">
+                                            <a href="{{ route('penjual.produk.edit', $produk->id) }}"
+                                                class="bg-[#2D3250] hover:bg-[#1f233a] text-[#FAE3AC] px-3 py-1 rounded-lg font-semibold transition">
+                                                Edit
+                                            </a>
+                                            <form action="{{ route('penjual.produk.destroy', $produk) }}" method="POST"
+                                                onsubmit="return confirm('Yakin ingin menghapus produk ini?')" class="inline">
                                                 @csrf
                                                 @method('DELETE')
-                                                <button type="submit" class="bg-red-500 hover:bg-red-600 text-white px-3 py-1 rounded">Hapus</button>
+                                                <button type="submit"
+                                                    class="bg-red-500 hover:bg-red-600 text-white px-3 py-1 rounded-lg font-semibold transition">
+                                                    Hapus
+                                                </button>
                                             </form>
                                         @else
                                             <span class="text-gray-400 italic text-sm">Tidak tersedia</span>
@@ -71,30 +85,13 @@
         </div>
     </div>
 
-    <!-- FOOTER -->
-    <footer class="bg-[#1E1E3F] text-white py-12 mt-10">
-        <div class="max-w-6xl mx-auto px-6 grid grid-cols-1 md:grid-cols-3 gap-8">
-            <div>
-                <h3 class="text-lg font-bold mb-2">Suplify</h3>
-                <p class="text-sm">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
-            </div>
-            <div>
-                <h3 class="text-lg font-bold mb-2">Information</h3>
-                <ul class="text-sm space-y-1">
-                    <li><a href="#" class="hover:underline">Produk & Layanan</a></li>
-                    <li><a href="#" class="hover:underline">Cara Kerja</a></li>
-                    <li><a href="#" class="hover:underline">FAQ</a></li>
-                </ul>
-            </div>
-            <div>
-                <h3 class="text-lg font-bold mb-2">Company</h3>
-                <ul class="text-sm space-y-1">
-                    <li><a href="#" class="hover:underline">Tentang Kami</a></li>
-                    <li><a href="#" class="hover:underline">Kontak</a></li>
-                </ul>
-            </div>
-        </div>
-        <div class="text-center text-sm mt-6 border-t border-white pt-4">&copy; 2025 Suplify. All rights reserved.</div>
-    </footer>
+    <style>
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .animate-fadeIn {
+            animation: fadeIn 0.4s ease-in-out;
+        }
+    </style>
 </x-app-layout>
- 

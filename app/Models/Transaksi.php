@@ -33,7 +33,11 @@ class Transaksi extends Model
     // }
 
     public function transaksis()
-    {
-        return $this->hasMany(TransaksiItem::class);
-    }
+{
+    return $this->hasMany(TransaksiItem::class, 'transaksi_id')
+        ->whereHas('produk', function ($q) {
+            $q->where('user_id', auth()->id());
+        });
+}
+
 }

@@ -59,64 +59,67 @@ class CartController extends Controller
     }
 
     public function checkout(Request $request)
-    {
-        DB::transaction(function () use ($request) {
-            $cartItems = CartItem::with('produk')
-                ->where('user_id', Auth::id())
-                ->get();
+{
+    DB::transaction(function () {
+        $cartItems = CartItem::with('produk')
+            ->where('user_id', Auth::id())
+            ->get();
 
-            if ($cartItems->isEmpty()) {
-                abort(400, 'Keranjang kosong');
+        if ($cartItems->isEmpty()) {
+            abort(400, 'Keranjang kosong');
+        }
+
+        // Ambil data profil user
+        $profile = Auth::user()->profile; // Pastikan relasi 'profile' ada di model User
+
+        if (!$profile || !$profile->alamat) {
+            abort(400, 'Alamat pengiriman belum diisi di profil Anda.');
+        }
+
+        // Hitung total & total qty
+        $total = 0;
+        $totalQty = 0;
+        foreach ($cartItems as $item) {
+            // Validasi stok
+            if ($item->produk->stok < $item->qty) {
+                abort(400, 'Stok tidak mencukupi untuk produk: ' . $item->produk->nama_produk);
             }
+            $total += $item->produk->harga * $item->qty;
+            $totalQty += $item->qty;
+        }
 
-            // Hitung total & total qty
-            $total = 0;
-            $totalQty = 0;
-            foreach ($cartItems as $item) {
-                // Validasi stok per item
-                if ($item->produk->stok < $item->qty) {
-                    abort(400, 'Stok tidak mencukupi untuk produk: ' . $item->produk->nama_produk);
-                }
-                $total += $item->produk->harga * $item->qty;
-                $totalQty += $item->qty;
-            }
+        $produkPertama = $cartItems->first();
 
-            // Ambil produk pertama (kalau schema transaksis masih memerlukan produk_id)
-            $produkPertama = $cartItems->first();
+        // Buat transaksi header dengan alamat dari profiles
+        $transaksi = Transaksi::create([
+            'produk_id' => $produkPertama ? $produkPertama->produk_id : null,
+            'user_id' => Auth::id(),
+            'jumlah' => $totalQty,
+            'total_harga' => $total,
+            'alamat_pengiriman' => $profile->alamat, // langsung ambil dari profile
+            'status' => 'done',
+        ]);
 
-            // Ambil alamat jika dikirim via request atau pakai alamat user (opsional)
-            $alamat = $request->input('alamat_pengiriman') ?? (Auth::user()->alamat ?? null);
-
-            // Buat transaksi header
-            $transaksi = Transaksi::create([
-                'produk_id' => $produkPertama ? $produkPertama->produk_id : null, // isi jika wajib di DB
-                'user_id' => Auth::id(),
-                'jumlah' => $totalQty,
-                'total_harga' => $total,
-                // 'alamat_pengiriman' => $alamat,
-                'status' => 'done',
+        // Simpan detail transaksi & kurangi stok
+        foreach ($cartItems as $item) {
+            TransaksiItem::create([
+                'transaksi_id' => $transaksi->id,
+                'produk_id'    => $item->produk_id,
+                'qty'          => $item->qty,
+                'harga'        => $item->produk->harga,
+                'subtotal'     => $item->produk->harga * $item->qty,
             ]);
 
-            // Simpan setiap item ke transaksi_items dan kurangi stok tiap item ONCE
-            foreach ($cartItems as $item) {
-                TransaksiItem::create([
-                    'transaksi_id' => $transaksi->id,
-                    'produk_id'    => $item->produk_id,
-                    'qty'          => $item->qty,
-                    'harga'        => $item->produk->harga,
-                    'subtotal'     => $item->produk->harga * $item->qty,
-                ]);
+            $item->produk->decrement('stok', $item->qty);
+        }
 
-                // kurangi stok sekali untuk item ini
-                $item->produk->decrement('stok', $item->qty);
-            }
+        // Kosongkan cart
+        CartItem::where('user_id', Auth::id())->delete();
+    });
 
-            // Kosongkan cart setelah berhasil
-            CartItem::where('user_id', Auth::id())->delete();
-        });
+    return redirect()
+        ->route('pembeli.transaksi.index')
+        ->with('success', 'Checkout berhasil');
+}
 
-        return redirect()
-            ->route('pembeli.transaksi.index')
-            ->with('success', 'Checkout berhasil');
-    }
 }

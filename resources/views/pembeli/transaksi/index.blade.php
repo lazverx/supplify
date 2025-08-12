@@ -1,51 +1,71 @@
 <x-app-layout>
     <x-slot name="header">
-        <h2 class="font-semibold text-xl text-gray-800 dark:text-white leading-tight">
+        <h2 class="text-2xl font-bold text-white tracking-wide">
             Riwayat Pembelian
         </h2>
     </x-slot>
 
-    <div class="py-4 max-w-7xl mx-auto sm:px-6 lg:px-8">
-        <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg p-6">
+    <div class="max-w-7xl mx-auto py-8 px-4 sm:px-6 lg:px-8 animate-fadeIn">
+        <div class="bg-[#FAE3AC] shadow-lg rounded-xl p-6 border border-[#2D3250]">
             @if ($transaksis->isEmpty())
-                <p class="text-gray-600 dark:text-gray-300">Kamu belum melakukan pembelian apapun.</p>
+                <p class="text-[#2D3250]/70 italic">Kamu belum melakukan pembelian apapun.</p>
             @else
-                <table class="w-full text-left text-sm text-gray-600 dark:text-gray-300">
-                    <thead class="border-b font-medium dark:border-gray-500">
-                        <tr>
-                            <th>Produk</th>
-                            <th>Total Item</th>
-                            <th>Total Harga</th>
-                            <th>Status</th>
-                            <th>Tanggal</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        @foreach ($transaksis as $transaksi)
-                            <tr class="border-b dark:border-gray-700 align-top">
-                                <td>
-                                    @foreach ($transaksi->transaksis as $item)
-                                        {{ $item->produk->nama_produk }} (x{{ $item->qty }})<br>
-                                    @endforeach
-                                </td>
-                                <td>
-                                    {{ $transaksi->transaksis->sum('qty') }}
-                                </td>
-                                <td>
-                                    Rp {{ number_format($transaksi->total_harga, 0, ',', '.') }}
-                                </td>
-                                <td>
-                                    <span class="px-2 py-1 rounded-full 
-                                        {{ $transaksi->status === 'done' ? 'bg-green-200 text-green-800' : 'bg-yellow-200 text-yellow-800' }}">
-                                        {{ ucfirst($transaksi->status) }}
-                                    </span>
-                                </td>
-                                <td>{{ $transaksi->created_at->format('d M Y') }}</td>
+                <div class="overflow-x-auto rounded-lg border border-[#2D3250]/30">
+                    <table class="min-w-full text-sm text-left border-collapse">
+                        <thead class="bg-[#2D3250] text-[#FAE3AC] uppercase text-xs">
+                            <tr>
+                                <th class="px-4 py-3">Produk</th>
+                                <th class="px-4 py-3">Total Item</th>
+                                <th class="px-4 py-3">Total Harga</th>
+                                <th class="px-4 py-3">Status</th>
+                                <th class="px-4 py-3">Tanggal</th>
                             </tr>
-                        @endforeach
-                    </tbody>
-                </table>
+                        </thead>
+                        <tbody class="bg-white">
+                            @foreach ($transaksis as $transaksi)
+                                <tr class="hover:bg-[#FAE3AC]/40 transition-colors">
+                                    <td class="px-4 py-3 text-[#2D3250]">
+                                        @foreach ($transaksi->transaksis as $item)
+                                            {{ $item->produk->nama_produk }} 
+                                            <span class="text-sm text-[#2D3250]/70">(x{{ $item->qty }})</span><br>
+                                        @endforeach
+                                    </td>
+                                    <td class="px-4 py-3 text-[#2D3250]">
+                                        {{ $transaksi->transaksis->sum('qty') }}
+                                    </td>
+                                    <td class="px-4 py-3 text-[#2D3250]">
+                                        Rp {{ number_format($transaksi->total_harga, 0, ',', '.') }}
+                                    </td>
+                                    <td class="px-4 py-3">
+                                        @if($transaksi->status === 'done')
+                                            <span class="inline-flex items-center gap-1 text-[#2D3250] bg-green-200 px-3 py-1 rounded-full text-xs font-medium border border-green-400">
+                                                ✔ Selesai
+                                            </span>
+                                        @else
+                                            <span class="inline-flex items-center gap-1 text-[#2D3250] bg-yellow-200 px-3 py-1 rounded-full text-xs font-medium border border-yellow-400">
+                                                ⏳ Pending
+                                            </span>
+                                        @endif
+                                    </td>
+                                    <td class="px-4 py-3 text-[#2D3250]/80">
+                                        {{ $transaksi->created_at->format('d M Y') }}
+                                    </td>
+                                </tr>
+                            @endforeach
+                        </tbody>
+                    </table>
+                </div>
             @endif
         </div>
     </div>
+
+    <style>
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .animate-fadeIn {
+            animation: fadeIn 0.4s ease-in-out;
+        }
+    </style>
 </x-app-layout>

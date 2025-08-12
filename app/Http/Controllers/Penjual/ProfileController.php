@@ -5,10 +5,32 @@ namespace App\Http\Controllers\Penjual;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use App\Models\Profile;
 
 
 class ProfileController extends Controller
 {
+    public function index()
+    {
+        $user = Auth::user();
+
+        // Kalau profil belum ada, bikin profil kosong biar gak error
+        if (!$user->profile) {
+            $user->profile->create([
+                'alamat' => null,
+                'no_hp' => null,
+            ]);
+        }
+
+        // Cek kalau no_hp atau alamat masih kosong → kasih warning
+        if (empty($user->profile->no_hp) || empty($user->profile->alamat)) {
+            session()->flash('warning', 'Lengkapi biodata Anda terlebih dahulu!');
+        }
+
+        return view('penjual.profile.index', compact('penjual'));
+    }
+
+
     public function edit()
     {
         $profile = Auth::user()->profile;

@@ -1,7 +1,10 @@
 <x-app-layout>
-    <div class="py-6">
-        <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-            <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg">
+    <div class="py-12 bg-[#F5F7FA] dark:bg-[#1E1E2F] min-h-screen">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="bg-[#2D3250] dark:bg-[#2D3250] rounded-xl shadow-xl p-8 text-white">
+
+                <h1 class="text-3xl font-bold mb-6 text-center">Marketplace</h1>
+
                 <div class="p-6 text-gray-900 dark:text-gray-100">
 
                     @if ($produk->isEmpty())
@@ -34,17 +37,17 @@
                                         </p>
 
                                         <div class="flex justify-between">
-                                            <p class="font-semibold text-blue-600 dark:text-blue-300">
+                                            <p class="font-semibold text-white">
                                                 Rp {{ number_format($item->harga, 0, ',', '.') }} / Kg
                                             </p>
-                                            <p class="font-semibold text-blue-600 dark:text-blue-300">
+                                            <p class="font-semibold text-white">
                                                 Stok: {{ $item->stok }} Kg
                                             </p>
                                         </div>
 
                                         <div class="mt-4 flex flex-col gap-2">
                                             <a href="{{ route('pembeli.transaksi.checkout', $item->id) }}"
-                                                class="block w-full text-center bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded transition">
+                                                class="mt-2 block w-full text-center bg-[#FAE3AC] hover:bg-yellow-300 text-[#2D3250] font-semibold py-2 rounded">
                                                 Beli
                                             </a>
                                         </div>

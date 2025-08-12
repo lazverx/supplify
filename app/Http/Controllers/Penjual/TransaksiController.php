@@ -9,12 +9,18 @@ use Illuminate\Support\Facades\Auth;
 
 class TransaksiController extends Controller
 {
-    public function index() 
-    {
-        $transaksis = Transaksi::whereHas('produk', function ($query) {
-            $query->where('user_id', Auth::id());
-        })->with('produk', 'pembeli')->get();
+    public function index()
+{
+    $transaksis = Transaksi::whereHas('transaksis.produk', function ($query) {
+        $query->where('user_id', auth()->id());
+    })
+    ->with([
+        'pembeli',
+        'transaksis.produk'
+    ])
+    ->get();
 
-        return view('penjual.transaksi.index', compact('transaksis'));
-    }
+    return view('penjual.transaksi.index', compact('transaksis'));
+}
+
 }
