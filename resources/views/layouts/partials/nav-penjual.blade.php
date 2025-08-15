@@ -19,11 +19,35 @@
         </div>
 
         <!-- Tombol Logout -->
-        <form method="POST" action="{{ route('logout') }}">
+        <form method="POST" action="{{ route('logout') }}" id="logout-form">
             @csrf
-            <button type="submit" class="bg-white text-yellow-600 px-4 py-1 rounded-full font-semibold shadow hover:bg-gray-100 transition">
+            <button type="button" id="logout-btn" class="bg-white text-yellow-600 px-4 py-1 rounded-full font-semibold shadow hover:bg-gray-100 transition">
                 Logout
             </button>
         </form>
+
     </div>
 </nav>
+
+{{-- SweetAlert2 --}}
+<script src="{{ asset('js/sweetalert2.all.min.js') }}"></script>
+<script>
+    document.getElementById('logout-btn').addEventListener('click', function (e) {
+        e.preventDefault();
+
+        Swal.fire({
+            title: 'Yakin mau logout?',
+            text: "Kamu akan keluar dari akun ini.",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#d33',
+            cancelButtonColor: '#3085d6',
+            confirmButtonText: 'Ya, Logout',
+            cancelButtonText: 'Batal'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                document.getElementById('logout-form').submit();
+            }
+        });
+    });
+</script>

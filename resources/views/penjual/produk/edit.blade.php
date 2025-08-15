@@ -7,16 +7,7 @@
 
     <div class="max-w-4xl mx-auto py-8 px-4 animate-fadeIn">
         
-        {{-- Error Message --}}
-        @if ($errors->any())
-            <div class="bg-red-100 text-red-800 p-4 rounded-lg shadow mb-6 border border-red-300">
-                <ul class="list-disc list-inside space-y-1">
-                    @foreach ($errors->all() as $error)
-                        <li>{{ $error }}</li>
-                    @endforeach
-                </ul>
-            </div>
-        @endif
+        
 
         <div class="bg-[#FAE3AC] border border-[#2D3250]/40 rounded-xl shadow-lg p-6">
             <form action="{{ route('penjual.produk.update', $produk) }}" method="POST" enctype="multipart/form-data" class="space-y-5">
@@ -95,3 +86,34 @@
         }
     </style>
 </x-app-layout>
+
+
+
+   {{-- SweetAlert2 --}}
+    <script src="{{ asset('js/sweetalert2.all.min.js') }}"></script>
+
+    @if(session('success'))
+        <script>
+            Swal.fire({
+                icon: 'success',
+                title: 'Berhasil!',
+                text: "{{ session('success') }}",
+                showConfirmButton: false,
+                timer: 1500
+            }).then(() => {
+                window.location.href = "{{ route('penjual.produk.index')}}";
+            });
+        </script>
+    @endif
+
+    @if(session('error'))
+        <script>
+            Swal.fire({
+                icon: 'error',
+                title: 'Gagal!',
+                text: "{{ session('error') }}",
+                showConfirmButton: true
+            });
+        </script>
+    @endif
+

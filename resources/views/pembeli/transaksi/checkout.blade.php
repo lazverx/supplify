@@ -36,3 +36,32 @@
         </div>
     </div>
 </x-app-layout>
+
+    {{-- SweetAlert2 --}}
+    <script src="{{ asset('js/sweetalert2.all.min.js') }}"></script>
+
+    @if(session('success'))
+        <script>
+            Swal.fire({
+                icon: 'success',
+                title: 'Berhasil!',
+                text: "{{ session('success') }}",
+                showConfirmButton: false,
+                timer: 1500
+            }).then(() => {
+                window.location.href = "{{ route('pembeli.transaksi.index')}}";
+            });
+        </script>
+    @endif
+
+    @if(session('error'))
+        <script>
+            Swal.fire({
+                icon: 'error',
+                title: 'Gagal!',
+                text: "{{ session('error') }}",
+                showConfirmButton: true
+            });
+        </script>
+    @endif
+

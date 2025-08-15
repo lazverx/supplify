@@ -64,7 +64,7 @@ class TransaksiSimulasiController extends Controller
 
             DB::commit();
 
-            return redirect()->route('pembeli.transaksi.status', $transaksi->id)
+            return redirect()->route('pembeli.transaksi.index', $transaksi->id)
                 ->with('success', 'Pembelian berhasil.');
         } catch (\Throwable $e) {
             DB::rollBack();

@@ -1,12 +1,6 @@
 <x-app-layout>
     <h1 class="text-xl font-bold mb-4">Edit Biodata</h1>
 
-    @if(session('success'))
-        <div class="bg-green-100 text-green-800 p-3 rounded mb-4">
-            {{ session('success') }}
-        </div>
-    @endif
-
     <form method="POST" action="{{ route('pembeli.profile.update') }}">
         @csrf
         <div class="mb-3">
@@ -38,3 +32,31 @@
         </button>
     </form>
 </x-app-layout>
+
+    {{-- SweetAlert2 --}}
+    <script src="{{ asset('js/sweetalert2.all.min.js') }}"></script>
+
+    @if(session('success'))
+        <script>
+            Swal.fire({
+                icon: 'success',
+                title: 'Berhasil!',
+                text: "{{ session('success') }}",
+                showConfirmButton: false,
+                timer: 1500
+            }).then(() => {
+                window.location.href = "{{ route('pembeli.profile.index')}}";
+            });
+        </script>
+    @endif
+
+    @if(session('error'))
+        <script>
+            Swal.fire({
+                icon: 'error',
+                title: 'Gagal!',
+                text: "{{ session('error') }}",
+                showConfirmButton: true
+            });
+        </script>
+    @endif

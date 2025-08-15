@@ -40,7 +40,7 @@
                             <td>{{ $penjual->profile->no_hp ?? '-' }}</td>
                         </tr>
                         <tr>
-                            <td class="font-semibold">Nama UMKM (Opsional)</td>
+                            <td class="font-semibold">Nama Perusahaan</td>
                             <td>{{ $penjual->profile->nama_perusahaan ?? '-' }}</td>
                         </tr>
                     </table>

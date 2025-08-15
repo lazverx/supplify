@@ -27,12 +27,12 @@ class Transaksi extends Model
         return $this->belongsTo(User::class, 'user_id');
     }
 
-    // public function transaksis()
-    // {
-    //     return $this->hasMany(TransaksiItem::class);
-    // }
-
     public function transaksis()
+    {
+        return $this->hasMany(TransaksiItem::class);
+    }
+
+    public function transaksisProduk()
 {
     return $this->hasMany(TransaksiItem::class, 'transaksi_id')
         ->whereHas('produk', function ($q) {

@@ -12,11 +12,11 @@ class ProfileController extends Controller
 {
     public function index()
     {
-        $user = Auth::user();
+        $penjual = Auth::user();
 
         // Kalau profil belum ada, bikin profil kosong biar gak error
-        if (!$user->profile) {
-            $user->profile->create([
+        if (!$penjual->profile) {
+            $penjual->profile()->create([
                 'alamat' => null,
                 'no_hp' => null,
             ]);

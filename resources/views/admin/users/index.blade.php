@@ -44,13 +44,14 @@
                                             Detail
                                         </a>
 
-                                        <form action="{{ route('admin.users.destroy', $user->id) }}" method="POST" class="inline" onsubmit="return confirm('Yakin ingin menghapus user ini?')">
+                                        <form action="{{ route('admin.users.destroy', $user->id) }}" method="POST" class="inline form-delete">
                                             @csrf
                                             @method('DELETE')
-                                            <button type="submit" class="px-3 py-1 rounded-lg text-sm font-medium border border-red-600 text-red-600 hover:bg-red-600 hover:text-white transition">
+                                            <button type="button" class="btn-delete px-3 py-1 rounded-lg text-sm font-medium border border-red-600 text-red-600 hover:bg-red-600 hover:text-white transition">
                                                 Hapus
                                             </button>
                                         </form>
+
                                     </td>
                                 </tr>
                                 @empty
@@ -86,3 +87,50 @@
         }
     </style>
 </x-app-layout>
+
+<script src="{{ asset('js/sweetalert2.all.min.js')}}"></script>
+
+@if(session('success'))
+<script>
+    Swal.fire({
+        icon: 'success',
+        title: 'Berhasil!',
+        text: "{{ session('success') }}",
+        showConfirmButton: false,
+        timer: 1500
+    });
+</script>
+@endif
+
+@if(session('error'))
+<script>
+    Swal.fire({
+        icon: 'error',
+        title: 'Gagal!',
+        text: "{{ session('error') }}",
+        showConfirmButton: true
+    });
+</script>
+@endif
+
+<script>
+    document.querySelectorAll('.btn-delete').forEach(button => {
+        button.addEventListener('click', function() {
+            let form = this.closest('form');
+            Swal.fire({
+                title: 'Yakin ingin menghapus user ini?',
+                text: "Tindakan ini tidak bisa dibatalkan!",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#d33',
+                cancelButtonColor: '#3085d6',
+                confirmButtonText: 'Ya, hapus!',
+                cancelButtonText: 'Batal'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    form.submit();
+                }
+            });
+        });
+    });
+</script>

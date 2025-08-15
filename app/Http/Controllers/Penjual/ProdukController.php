@@ -43,8 +43,9 @@ class ProdukController extends Controller
             'stok' => $request->stok,
             'lokasi' => $request->lokasi,
         ]);
-
-        return redirect()->route('penjual.produk.index')->with('success', 'Produk berhasil diajukan!');
+     
+        return redirect()->back()->with('success', 'Produk berhasil diajukan');
+        
     }
 
     public function edit(Produk $produk)
@@ -80,7 +81,7 @@ class ProdukController extends Controller
 
         $produk->update($data);
 
-        return redirect()->route('penjual.produk.index')->with('success', 'Produk berhasil diperbarui!');
+        return redirect()->back()->with('success', 'Produk berhasil diperbaharui');
     }
 
     public function log()

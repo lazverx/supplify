@@ -16,7 +16,7 @@ class ProfileController extends Controller
 
         // Kalau profil belum ada, bikin profil kosong biar gak error
         if (!$user->profile) {
-            $user->profile->create([
+            $user->profile()->create([
                 'alamat' => null,
                 'no_hp' => null,
             ]);

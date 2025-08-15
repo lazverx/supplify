@@ -14,7 +14,9 @@ class ValidasiController extends Controller
         $produk->status = 'approved';
         $produk->save();
 
-        return redirect()->route('admin.produk.index')->with('success', 'Produk disetujui');
+        // return redirect()->route('admin.produk.index')->with('success', 'Produk disetujui');
+        return redirect()->back()->with('success', 'Produk berhasil disetujui.');
+
     }
 
     public function reject($id)
