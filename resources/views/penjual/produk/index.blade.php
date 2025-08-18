@@ -1,21 +1,21 @@
 <x-app-layout>
     <x-slot name="header">
-        <h2 class="text-2xl font-bold text-white tracking-wide">
+        <h2 class="text-2xl font-bold text-black tracking-wide">
             Produk Saya
         </h2>
     </x-slot>
 
     <div class="max-w-7xl mx-auto py-8 px-4 sm:px-6 lg:px-8 animate-fadeIn">
-        <div class="bg-[#FAE3AC] shadow-lg rounded-xl p-6 border border-[#2D3250]">
+        <div class="bg-[#FAE3AC] shadow-lg rounded-lg p-6">
 
             {{-- Search & Tambah Produk --}}
             <div class="flex flex-col md:flex-row justify-between items-center gap-4 mb-6">
                 <form action="{{ route('penjual.produk.index') }}" method="GET" class="flex items-center gap-2">
                     <input type="text" name="search" placeholder="Cari produk..."
-                        class="px-4 py-2 rounded-lg bg-white text-[#2D3250] border border-[#2D3250]/40 focus:outline-none focus:ring-2 focus:ring-[#2D3250]" />
+                        class="px-4 py-2 rounded-lg bg-white text-[#2D3250]" />
                     <button type="submit"
-                        class="bg-[#2D3250] hover:bg-[#1f233a] text-[#FAE3AC] px-4 py-2 rounded-lg font-semibold transition">
-                        🔍
+                        class="bg-[#ffffff] hover:bg-[#ffffff] text-[#FAE3AC] px-4 py-2 rounded-lg font-semibold transition">
+                       <img src="{{ asset('image/icons/search.svg') }}" alt="search" class="w-5 h-5">
                     </button>
                 </form>
                 <a href="{{ route('penjual.produk.create') }}"
@@ -28,7 +28,7 @@
             @if($produks->isEmpty())
             <p class="text-[#2D3250]/70 italic text-center py-8">Kamu belum menambahkan produk.</p>
             @else
-            <div class="overflow-x-auto rounded-lg border border-[#2D3250]/30">
+            <div class="overflow-x-auto rounded-lg">
                 <table class="min-w-full text-sm text-left border-collapse">
                     <thead class="bg-[#2D3250] text-[#FAE3AC] uppercase text-xs">
                         <tr>
@@ -51,7 +51,7 @@
                             <td class="px-4 py-3">
                                 @if($produk->foto)
                                 <img src="{{ asset('storage/' . $produk->foto) }}" alt="Foto Produk"
-                                    class="w-20 h-20 object-cover rounded-lg border border-[#2D3250] shadow-sm mx-auto">
+                                    class="w-20 h-20 object-cover rounded-lg border shadow-sm mx-auto">
                                 @else
                                 <span class="text-gray-400 italic">Belum ada</span>
                                 @endif
@@ -105,14 +105,7 @@
 </x-app-layout>
 
 
-<form action="{{ route('penjual.produk.destroy', $produk) }}" method="POST" class="inline delete-form">
-    @csrf
-    @method('DELETE')
-    <button type="button"
-        class="bg-red-500 hover:bg-red-600 text-white px-3 py-1 rounded-lg font-semibold transition delete-btn">
-        Hapus
-    </button>
-</form>
+
 
 {{-- SweetAlert2 --}}
 <script src="{{ asset('js/sweetalert2.all.min.js') }}"></script>

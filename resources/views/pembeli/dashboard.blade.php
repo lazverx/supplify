@@ -1,28 +1,29 @@
 <x-app-layout>
     <!-- Navbar -->
-
-    <div class="p-8 bg-white min-h-screen">
         <!-- Hero Section -->
-        <!-- resources/views/components/hero.blade.php -->
-        <div class="grid grid-cols-1 md:grid-cols-2 rounded-[10px] overflow-hidden mb-8">
+             {{-- Hero Section --}}
+<div class="bg-[#1E1E3F] text-white py-16 px-6 rounded-lg mx-8 mb-8 mt-8 fade-up">
+    <div class="max-w-7xl mx-auto flex flex-col md:flex-row items-center gap-8">
+        
+        <!-- Teks -->
+        <div class="md:w-1/2 fade-right delay-200">
+            <h1 class="text-3xl md:text-4xl font-bold leading-snug mb-4">
+                Simplify Your Supply, <br> Amplify Your Growth.
+            </h1>
+            <p class="text-base md:text-lg opacity-90 mb-6">
+                Suplify mempertemukan penjual dan pembeli dalam satu platform 
+                untuk memudahkan jual beli bahan baku dan produk berkualitas 
+                secara cepat, transparan, dan tepat waktu.
+            </p>
 
-            <!-- Kiri (Teks) -->
-            <div class="bg-[#0A1B2F] py-16 px-6 text-white mr-8">
-                <h1 class="text-3xl md:text-4xl font-extrabold leading-snug mb-6">
-                    supplify <br> dolor sit amet
-                </h1>
-                <p class="text-gray-300 text-base leading-relaxed max-w-md">
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium.
-                </p>
-            </div>
-
-            <!-- Kanan (Gambar) -->
-            <div>
-                <img src="{{ asset('image/about-us.jpg') }}"
-                    alt="Hero Image"
-                    class="w-full h-full object-cover ">
-            </div>
+        <!-- Gambar -->
+        <div class="md:w-1/2 fade-left delay-400">
+            <img src="{{ asset('image/hero-seller.jpg') }}" 
+                 alt="Ilustrasi Hero" 
+                 class="rounded-xl shadow-lg">
         </div>
+    </div>
+</div>
 
         <!-- Tentang Kami -->
         <div class="bg-[#0A1B2F] rounded-[10px] p-6 md:p-8 mb-8">

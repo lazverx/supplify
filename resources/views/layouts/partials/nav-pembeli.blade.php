@@ -30,7 +30,7 @@
          <!-- Tombol Logout -->
         <form method="POST" action="{{ route('logout') }}" id="logout-form">
             @csrf
-            <button type="button" id="logout-btn" class="bg-white text-yellow-600 px-4 py-1 rounded-full font-semibold shadow hover:bg-gray-100 transition">
+            <button type="button" id="logout-btn" class="bg-white text-yellow-600 px-4 py-1 rounded-lg font-semibold shadow hover:bg-gray-100 transition">
                 Logout
             </button>
         </form>

@@ -3,45 +3,60 @@
 
 
     <!-- Hero Section -->
-    <div class="bg-[#1E1E3F] text-white py-16 px-6 rounded-b-3xl">
-        <div class="max-w-7xl mx-auto flex flex-col md:flex-row items-center gap-8">
-            <!-- Teks -->
-            <div class="md:w-1/2">
-                <h1 class="text-4xl font-bold mb-4">Lorem ipsum dolor sit amet</h1>
-                <p class="text-lg opacity-90 mb-6">
-                    Lorem ipsum dolor sit amet consectetur adipisicing elit. Vel voluptatem accusamus earum voluptates...
-                </p>
-                <div class="flex gap-4">
-                    <a href="{{ route('penjual.produk.create') }}" class="bg-yellow-400 text-black font-semibold px-6 py-3 rounded-lg hover:bg-yellow-300 transition">
-                        Tambah Produk
-                    </a>
-                    <a href="#tentang" class="bg-white text-blue-800 font-semibold px-6 py-3 rounded-lg hover:bg-gray-100 transition">
-                        Tentang Kami
-                    </a>
-                </div>
-            </div>
-            <!-- Gambar -->
-            <div class="md:w-1/2">
-                <img src="{{ asset('image/hero-seller.jpg') }}" alt="Ilustrasi" class="rounded-xl shadow-lg">
+       {{-- Hero Section --}}
+       <section class="bg-[#1F2544] px-6 md:px-12 py-16 rounded-[10px] mx-8">
+<div class="bg-[#1E1E3F] text-white py-16 px-6 rounded-lg mx-8 mb-8 mt-8 fade-up">
+    <div class="max-w-7xl mx-auto flex flex-col md:flex-row items-center gap-8">
+        
+        <!-- Teks -->
+        <div class="md:w-1/2 fade-right delay-200">
+            <h1 class="text-3xl md:text-4xl font-bold leading-snug mb-4">
+                Simplify Your Supply, <br> Amplify Your Growth.
+            </h1>
+            <p class="text-base md:text-lg opacity-90 mb-6">
+                Suplify mempertemukan penjual dan pembeli dalam satu platform 
+                untuk memudahkan jual beli bahan baku dan produk berkualitas 
+                secara cepat, transparan, dan tepat waktu.
+            </p>
+            <div class="flex gap-4">
+                <a href="{{ route('penjual.produk.create') }}" 
+                   class="bg-[#FAE3AC] text-black font-semibold px-6 py-3 rounded-lg hover:bg-[#e2cd90] transition">
+                    Tambah Produk
+                </a>
+                <a href="#tentang" 
+                   class="bg-white text-[#1E1E3F] font-semibold px-6 py-3 rounded-lg hover:bg-gray-100 transition">
+                    Tentang Kami
+                </a>
             </div>
         </div>
-    </div>
 
-    <!-- Tentang Kami -->
-    <div id="tentang" class="bg-[#2F2F5F] text-white py-16 px-6">
-        <div class="max-w-7xl mx-auto grid md:grid-cols-2 gap-10 items-center">
-            <div>
-                <h2 class="text-3xl font-bold mb-4">Tentang Kami</h2>
-                <p class="text-gray-300 leading-relaxed">
-                    Supplify hadir untuk membantu pelaku UMKM dan penjual industri memanfaatkan produk sisa atau limbah industri menjadi peluang bisnis yang berkelanjutan.
-                </p>
+        <!-- Gambar -->
+        <div class="md:w-1/2 fade-left delay-400">
+            <img src="{{ asset('image/hero-seller.jpg') }}" 
+                 alt="Ilustrasi Hero" 
+                 class="rounded-xl shadow-lg">
+        </div>
+    </div>
+</div>
+</section>
+
+
+   {{-- About Us --}}
+    <div class="bg-[#1F2544] p-6 md:p-8 mt-8 mb-8 mx-8 rounded-[10px] fade-up">
+        <div class="flex flex-col md:flex-row items-center gap-6">
+            <div class="w-full md:w-1/2 fade-up fade-delay-1">
+                <img src="{{ asset('image/about-us.jpg') }}" alt="Tentang Kami" class="rounded-lg shadow-lg w-[400px] h-auto object-cover">
             </div>
-            <div class="bg-gray-300 w-full h-48 rounded-lg"></div>
+            <div class="w-full ml-5 md:text-4xl text-white fade-up fade-delay-2">
+                <h2 class="text-3xl font-bold mb-3">Tentang Kami</h2>
+                <p class="text-gray-300 text-base leading-relaxed mb-4">
+                    Suplify adalah platform inovatif yang hadir untuk mempermudah proses pemenuhan kebutuhan Anda dengan cepat, aman, dan efisien. Kami menghubungkan pengguna dengan berbagai produk berkualitas dari pemasok terpercaya, memastikan setiap transaksi berjalan lancar dan memuaskan.</p>
+            </div>
         </div>
     </div>
 
     <!-- Cara Mengajukan Produk -->
-    <div class="bg-[#2F2F5F] py-16 px-6 text-white text-center">
+    <div class="bg-[#1F2544] py-16 px-6 mx-8 mb-8 rounded-lg text-white text-center">
         <div class="max-w-5xl mx-auto">
             <h2 class="text-2xl font-bold mb-10">Cara Mengajukan Produk</h2>
 
@@ -51,9 +66,8 @@
                     <div class="flex flex-col items-center">
                         <!-- Icon -->
                         <div class="mb-4">
-                            <svg xmlns="http://www.w3.org/2000/svg" class="h-10 w-10 text-yellow-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 17v-6h13v6M9 13V9a3 3 0 013-3h3a3 3 0 013 3v4m-6 4h.01" />
-                            </svg>
+                            <img src="{{ asset('image/icons/shopping.svg') }}"class="h-10 w-10 text-yellow-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                
                         </div>
                         <h3 class="text-lg font-bold mb-2">1. Ajukan Produk</h3>
                         <p class="text-sm text-center">Unggah produk sisa industri atau limbah yang masih bernilai.</p>
@@ -72,9 +86,7 @@
                     <div class="flex flex-col items-center">
                         <!-- Icon -->
                         <div class="mb-4">
-                            <svg xmlns="http://www.w3.org/2000/svg" class="h-10 w-10 text-yellow-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20 13V6a2 2 0 00-2-2h-4.586a1 1 0 00-.707.293L3 17l1.414 1.414 10.293-10.293A1 1 0 0115 8h3a1 1 0 011 1v4h1z" />
-                            </svg>
+                          <img src="{{ asset('image/icons/verif.svg') }}" class="h-10 w-10 text-yellow-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                         </div>
                         <h3 class="text-lg font-bold mb-2">2. Proses Verifikasi</h3>
                         <p class="text-sm text-center">Tim kami akan meninjau dan menyetujui produkmu.</p>
@@ -93,9 +105,7 @@
                     <div class="flex flex-col items-center">
                         <!-- Icon -->
                         <div class="mb-4">
-                            <svg xmlns="http://www.w3.org/2000/svg" class="h-10 w-10 text-yellow-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 10h11l-1.35 4.032A2 2 0 0014.537 17H19a2 2 0 002-2v-5a2 2 0 00-2-2h-2" />
-                            </svg>
+                             <img src="{{ asset('image/icons/basket.svg') }}" class="h-10 w-10 text-yellow-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                         </div>
                         <h3 class="text-lg font-bold mb-2">3. Mulai Jualan</h3>
                         <p class="text-sm text-center">Produk tampil di etalase Supplify dan siap dijual!</p>
@@ -107,7 +117,7 @@
 
 
     <!-- Statistik -->
-    <div class="bg-[#1E1E3F] text-white py-12 px-6 text-center">
+    <div class="bg-[#1F2544] text-white py-12 px-6 mx-8 mb-8 rounded-lg text-center">
         <h2 class="text-2xl font-bold mb-10">Statistik Kami</h2>
         <div class="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-8">
             <!-- Card 1 -->
@@ -150,19 +160,19 @@
 
 
     <!-- Layanan -->
-    <div class="bg-[#2F2F5F] py-16 px-6 text-white">
+    <div class="bg-[#1F2544] py-16 px-6 mx-8 mb-8 rounded-lg text-white">
         <div class="max-w-7xl mx-auto text-center">
             <h2 class="text-2xl font-bold mb-8">Layanan Terbaik untuk Mendukung Bisnismu</h2>
             <div class="grid md:grid-cols-3 gap-8 text-left">
-                <div class="bg-gray-200 text-gray-800 p-6 rounded-xl">
+                <div class="bg-[#FAE3AC] text-black p-6 rounded-xl">
                     <h3 class="font-bold text-xl mb-2">Pengajuan Produk</h3>
                     <p>Ajukan produk sisa industri atau limbah yang masih bernilai tinggi.</p>
                 </div>
-                <div class="bg-gray-200 text-gray-800 p-6 rounded-xl">
+                <div class="bg-[#FAE3AC] text-black p-6 rounded-xl">
                     <h3 class="font-bold text-xl mb-2">Logistik</h3>
                     <p>Solusi pengiriman produk yang efisien ke seluruh Indonesia.</p>
                 </div>
-                <div class="bg-gray-200 text-gray-800 p-6 rounded-xl">
+                <div class="bg-[#FAE3AC] text-black p-6 rounded-xl">
                     <h3 class="font-bold text-xl mb-2">Promosi Produk</h3>
                     <p>Tampilkan produkmu di halaman utama Supplify.</p>
                 </div>
@@ -171,11 +181,11 @@
     </div>
 
     <!-- Call To Action -->
-    <div class="bg-yellow-400 text-black py-16 text-center">
+    <div class="bg-[#FAE3AC] text-black py-16 text-center">
         <div class="max-w-3xl mx-auto">
             <h2 class="text-2xl font-bold mb-4">Punya produk sisa industri yang masih bisa dimanfaatkan?</h2>
             <p class="mb-6">Ajukan sekarang dan bantu UMKM berkembang bersama Supplify.</p>
-            <a href="{{ route('penjual.produk.create') }}" class="bg-white text-yellow-600 font-bold px-8 py-3 rounded-full shadow hover:bg-gray-100">
+            <a href="{{ route('penjual.produk.create') }}" class="bg-white text-yellow-600 font-bold px-8 py-3 rounded-lg shadow hover:bg-gray-100">
                 Tambahkan Produk
             </a>
         </div>

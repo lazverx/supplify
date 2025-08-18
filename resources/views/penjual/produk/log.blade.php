@@ -1,33 +1,30 @@
 <x-app-layout>
     <x-slot name="header">
-        <h2 class="text-2xl font-bold text-white tracking-wide">
+        <h2 class="text-2xl font-bold text-black tracking-wide">
             Riwayat Produk
         </h2>
     </x-slot>
 
-    <div class="max-w-7xl mx-auto py-8 px-4 sm:px-6 lg:px-8 animate-fadeIn">
-        
-        {{-- Header --}}
-        <div class="bg-[#2D3250] text-[#FAE3AC] p-6 rounded-t-lg shadow-md">
-            <h2 class="text-xl font-bold">Log Produk</h2>
-        </div>
-
-        {{-- Konten --}}
-        <div class="bg-white shadow-lg rounded-b-lg overflow-x-auto border border-[#2D3250]/30">
-            <div class="p-4 flex justify-between items-center">
-                <form action="{{ route('penjual.produk.log') }}" method="GET" class="flex items-center gap-2">
+   <div class="max-w-7xl mx-auto py-8 px-4 sm:px-6 lg:px-8 animate-fadeIn">
+        <div class="bg-[#FAE3AC] shadow-lg rounded-lg p-6">
+            
+        {{-- Search & Tambah Produk --}}
+            <div class="flex flex-col md:flex-row justify-between items-center gap-4 mb-6">
+                <form action="{{ route('penjual.produk.index') }}" method="GET" class="flex items-center gap-2">
                     <input type="text" name="search" placeholder="Cari produk..."
-                        class="px-4 py-2 rounded-lg bg-white text-[#2D3250] border border-[#2D3250]/40 focus:outline-none focus:ring-2 focus:ring-[#2D3250]" />
+                        class="px-4 py-2 rounded-lg bg-white text-[#2D3250]" />
                     <button type="submit"
-                        class="bg-[#2D3250] hover:bg-[#1f233a] text-[#FAE3AC] px-4 py-2 rounded-lg font-semibold transition">
-                        🔍
+                        class="bg-[#ffffff] hover:bg-[#ffffff] text-[#FAE3AC] px-4 py-2 rounded-lg font-semibold transition">
+                       <img src="{{ asset('image/icons/search.svg') }}" alt="search" class="w-5 h-5">
                     </button>
                 </form>
+                
             </div>
 
             {{-- Tabel --}}
-            <table class="min-w-full table-auto text-sm text-left">
-                <thead class="bg-[#FAE3AC] text-[#2D3250] uppercase text-xs">
+            <div class="overflow-x-auto rounded-lg">
+                <table class="min-w-full text-sm text-left border-collapse">
+                    <thead class="bg-[#2D3250] text-[#FAE3AC] uppercase text-xs">
                     <tr>
                         <th class="px-4 py-3">No</th>
                         <th class="px-4 py-3">Nama Produk</th>
@@ -37,7 +34,7 @@
                         <th class="px-4 py-3">Pesan</th>
                     </tr>
                 </thead>
-                <tbody>
+                <tbody class="bg-white">
                     @forelse ($produks as $index => $produk)
                         <tr class="border-t hover:bg-[#FAE3AC]/30 transition">
                             <td class="px-4 py-3 text-[#2D3250]">{{ $index + 1 }}</td>
