@@ -33,8 +33,8 @@ use App\Http\Controllers\Penjual\ProfileController as PenjualProfileController;
 */
 
 Route::get('/', function () {
-    return view('landing');
-});
+    return view('landing-page');
+})->name('landing');
 
 
 

@@ -2,11 +2,11 @@
     <div class="max-w-7xl mx-auto px-6 py-4 flex justify-between items-center">
         <!-- Logo dan Navigasi -->
         <div class="flex items-center gap-10">
-            <!-- Logo -->
-            <div class="flex items-center gap-2">
-                <img src="{{ asset('image/logo-supplify.png') }}" alt="Supplify Logo" class="h-[50px] w-[50px] rounded-full">
-                <!-- <span class="font-bold text-lg">Supplify</span> -->
-            </div>
+              <!-- Logo -->
+        <div class="flex items-center gap-3">
+            <img src="{{ asset('image/logo-supplify.png') }}" alt="Supplify Logo" class="h-[70px] w-[40x]">
+        </div>
+
 
             <!-- Menu Navigasi -->
             <div class="flex gap-6 font-semibold">

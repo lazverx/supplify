@@ -9,11 +9,12 @@
                     alt="Register Image"
                     class="object-cover h-full w-full"
                 />
+                
             </div>
 
             <!-- Bagian Form -->
             <div class="md:w-1/2 w-full p-10 text-white flex flex-col justify-center">
-                <h2 class="text-2xl md:text-3xl font-bold mb-8">Create an account</h2>
+                <h2 class="text-2xl md:text-3xl font-bold mx-auto mb-8">Create an account</h2>
 
                 <form method="POST" action="{{ route('register') }}">
                     @csrf
@@ -22,7 +23,7 @@
                     <div class="mb-4">
                         <x-text-input 
                             id="name" 
-                            class="w-full px-4 py-3 rounded bg-[#2F365E] border border-gray-600 text-white placeholder-gray-300 focus:outline-none focus:ring-2 focus:ring-yellow-400" 
+                            class="w-[400px] h-[55px] ml-4 px-4 py-3 rounded-lg bg-[#2F365E] text-white border-0 focus:outline-none focus:ring-0" 
                             type="text" 
                             name="name" 
                             :value="old('name')" 
@@ -37,8 +38,8 @@
                     <div class="mb-4">
                         <x-text-input 
                             id="email" 
-                            class="w-full px-4 py-3 rounded bg-[#2F365E] border border-gray-600 text-white placeholder-gray-300 focus:outline-none focus:ring-2 focus:ring-yellow-400" 
                             type="email" 
+                            class="w-[400px] h-[55px] ml-4 px-4 py-3 rounded-lg bg-[#2F365E] text-white border-0 focus:outline-none focus:ring-0" 
                             name="email" 
                             :value="old('email')" 
                             required 
@@ -51,7 +52,7 @@
                     <div class="mb-4">
                         <x-text-input 
                             id="password" 
-                            class="w-full px-4 py-3 rounded bg-[#2F365E] border border-gray-600 text-white placeholder-gray-300 focus:outline-none focus:ring-2 focus:ring-yellow-400" 
+                            class="w-[400px] h-[55px] ml-4 px-4 py-3 rounded-lg bg-[#2F365E] text-white border-0 focus:outline-none focus:ring-0" 
                             type="password" 
                             name="password" 
                             required 
@@ -64,7 +65,7 @@
                     <div class="mb-4">
                         <x-text-input 
                             id="password_confirmation" 
-                            class="w-full px-4 py-3 rounded bg-[#2F365E] border border-gray-600 text-white placeholder-gray-300 focus:outline-none focus:ring-2 focus:ring-yellow-400" 
+                            class="w-[400px] h-[55px] ml-4 px-4 py-3 rounded-lg bg-[#2F365E] text-white border-0 focus:outline-none focus:ring-0" 
                             type="password" 
                             name="password_confirmation" 
                             required 
@@ -79,7 +80,7 @@
                             id="role" 
                             name="role" 
                             required 
-                            class="w-full px-4 py-3 rounded bg-[#2F365E] border border-gray-600 text-white focus:outline-none focus:ring-2 focus:ring-yellow-400"
+                            class="w-[400px] h-[55px] ml-4 px-4 py-3 rounded-lg bg-[#2F365E] text-white border-0 focus:outline-none focus:ring-0" 
                         >
                             <option value="">Pilih Role</option>
                             <option value="pembeli" {{ old('role') == 'pembeli' ? 'selected' : '' }}>Pembeli</option>
@@ -92,7 +93,7 @@
                     <div class="mb-6">
                         <button 
                             type="submit" 
-                            class="w-full bg-[#FAE3AC] hover:bg-[#e2cd90] text-[#1F2544] font-bold py-3 rounded transition duration-300">
+                            class="w-[400px] h-[55px] ml-4 bg-[#FAE3AC] hover:bg-[#e2cd90] text-[#1F2544] font-bold py-3 rounded transition duration-300">
                             Register
                         </button>
                     </div>

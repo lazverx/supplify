@@ -14,7 +14,7 @@
             <div class="md:w-1/2 w-full relative">
                 <img src="{{ asset('image/login-image.jpg') }}" alt="Login Image" class="w-full h-full object-cover" />
                 <div class="absolute top-5 left-5">
-                    <img src="{{ asset('images/suplify-logo.png') }}" alt="Suplify Logo" class="w-24">
+                    <img src="{{ asset('image/logo-putih.png') }}" alt="Suplify Logo" class="w-24">
                 </div>
             </div>
 
@@ -36,7 +36,7 @@
                             required
                             autofocus
                             placeholder="Email"
-                            class="w-[400px] h-[55px] ml-2 px-4 rounded-md bg-[#2C3159] text-white border-none placeholder-gray-300 focus:outline-none focus:ring-2 focus:ring-yellow-300"
+                            class="w-[400px] h-[55px] ml-2 px-4 rounded-md bg-[#2C3159] text-white border-none placeholder-gray-300  focus:outline-none focus:ring-0"
                         />
                         <x-input-error :messages="$errors->get('email')" class="mt-2 text-red-400" />
                     </div>
@@ -48,7 +48,7 @@
                             name="password"
                             required
                             placeholder="Password"
-                            class="w-[400px] h-[55px] ml-2 px-4 rounded-md bg-[#2C3159] text-white border-none placeholder-gray-300 focus:outline-none focus:ring-2 focus:ring-yellow-300"
+                            class="w-[400px] h-[55px] ml-2 px-4 rounded-md bg-[#2C3159] text-white border-none placeholder-gray-300 focus:outline-none focus:ring-0"
                         />
                         <x-input-error :messages="$errors->get('password')" class="mt-2 text-red-400" />
                     </div>
