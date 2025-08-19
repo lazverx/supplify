@@ -1,6 +1,6 @@
 <x-app-layout>
     <x-slot name="header">
-        <h2 class="text-2xl font-bold text-white tracking-wide">
+        <h2 class="text-2xl font-bold text-black tracking-wide">
             Log Transaksi
         </h2>
     </x-slot>

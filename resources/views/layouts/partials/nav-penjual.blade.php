@@ -3,10 +3,9 @@
         <!-- Logo dan Navigasi -->
         <div class="flex items-center gap-10">
             <!-- Logo -->
-            <div class="flex items-center gap-2">
-                <img src="{{ asset('image/logo-supplify.png') }}" alt="Supplify Logo" class="h-[50px] w-[50px] rounded-full">
-                <!-- <span class="font-bold text-lg">Supplify</span> -->
-            </div>
+        <div class="flex items-center gap-3">
+            <img src="{{ asset('image/logo-supplify.png') }}" alt="Supplify Logo" class="h-[70px] w-[40x]">
+        </div>
 
             <!-- Menu Navigasi -->
             <div class="flex gap-6 font-semibold">
@@ -21,7 +20,7 @@
         <!-- Tombol Logout -->
         <form method="POST" action="{{ route('logout') }}" id="logout-form">
             @csrf
-            <button type="button" id="logout-btn" class="bg-white text-yellow-600 px-4 py-1 rounded-full font-semibold shadow hover:bg-gray-100 transition">
+            <button type="button" id="logout-btn" class="bg-white text-yellow-600 px-4 py-1 rounded-lg font-semibold shadow hover:bg-gray-100 transition">
                 Logout
             </button>
         </form>

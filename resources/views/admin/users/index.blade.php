@@ -1,12 +1,12 @@
 <x-app-layout>
     <x-slot name="header">
-        <h2 class="text-2xl font-bold text-white tracking-wide">
+        <h2 class="text-2xl font-bold text-black tracking-wide">
             Manajemen pengguna
         </h2>
     </x-slot>
 
     <div class="max-w-7xl mx-auto py-8 px-4 sm:px-6 lg:px-8 animate-fadeIn">
-        <div class="bg-[#FAE3AC] shadow-lg rounded-xl p-6 border border-[#2D3250]">
+        <div class="bg-[#FAE3AC] shadow-lg rounded-xl p-6">
             @if(session('success'))
             <div class="mb-4 text-[#2D3250] dark:text-[#FAE3AC] bg-[#FAE3AC]/40 dark:bg-[#2D3250]/50 p-3 rounded-lg shadow-sm border border-[#2D3250]/20">
                 ✅ {{ session('success') }}
@@ -15,8 +15,6 @@
             <h3 class="text-lg font-semibold text-[#2D3250] mb-6 border-b border-[#2D3250]/30 pb-2">
                 Daftar Pengguna
             </h3>
-
-            <div class="bg-white dark:bg-[#2D3250] shadow-lg rounded-xl overflow-hidden border border-[#2D3250]/30 dark:border-[#FAE3AC]/30">
                 <div class="p-6 text-[#2D3250] dark:text-[#FAE3AC]">
                     <div class="overflow-x-auto rounded-lg border border-[#2D3250]/20 dark:border-[#FAE3AC]/20">
                         <table class="min-w-full text-sm text-left border-collapse">
@@ -30,11 +28,11 @@
                             </thead>
                             <tbody class="bg-white dark:bg-[#1f2236]">
                                 @forelse ($users as $user)
-                                <tr class="border-b border-[#2D3250]/20 dark:border-[#FAE3AC]/20 hover:bg-[#FAE3AC]/30 dark:hover:bg-[#2D3250]/70 transition-colors">
+                                <tr class="hover:bg-[#FAE3AC]/30 dark:hover:bg-[#2D3250]/70 transition-colors">
                                     <td class="px-6 py-4 font-medium">{{ $user->name }}</td>
                                     <td class="px-6 py-4">{{ $user->email }}</td>
                                     <td class="px-6 py-4">
-                                        <span class="px-3 py-1 rounded-full text-xs font-medium 
+                                        <span class="px-3 py-1 rounded-lg text-xs font-medium 
                                                 {{ $user->role === 'admin' ? 'bg-[#2D3250] text-[#FAE3AC] border border-[#FAE3AC]' : 'bg-[#FAE3AC] text-[#2D3250] border border-[#2D3250]' }}">
                                             {{ ucfirst($user->role) }}
                                         </span>

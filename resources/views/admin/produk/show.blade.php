@@ -1,43 +1,44 @@
 <x-app-layout>
     <x-slot name="header">
-        <h2 class="text-xl font-semibold text-white">
+        <h2 class="text-xl font-bold text-white dark:text-gray-200">
             Detail Produk
         </h2>
     </x-slot>
 
-    <div class="max-w-6xl mx-auto py-8 px-4 sm:px-6 lg:px-8">
-        <div class="bg-white rounded-lg shadow-md p-6 flex flex-col md:flex-row gap-8">
-            <!-- Bagian Kiri -->
+    <div class="max-w-6xl mx-auto py-10 px-4 sm:px-6 lg:px-8">
+        <div class="bg-white dark:bg-gray-800 rounded-2xl shadow-lg p-8 flex flex-col md:flex-row gap-10">
+            
+            <!-- Bagian Kiri (Gambar Produk) -->
             <div class="md:w-1/2 flex justify-center items-center">
-                <div class="w-full aspect-[4/3] overflow-hidden rounded-lg bg-gray-100">
-                    <img src="{{ asset('storage/' . $produk->foto) }}" alt="{{ $produk->nama_produk }}"
-                        class="w-full h-full object-contain" />
+                <div class="w-full aspect-[4/3] overflow-hidden rounded-xl bg-gray-100 dark:bg-gray-700 shadow-inner">
+                    <img src="{{ asset('storage/' . $produk->foto) }}" 
+                         alt="{{ $produk->nama_produk }}"
+                         class="w-full h-full object-contain hover:scale-105 transition duration-300 ease-in-out" />
                 </div>
             </div>
 
-            <!-- Bagian Kanan -->
+            <!-- Bagian Kanan (Detail Produk) -->
             <div class="md:w-1/2 flex flex-col justify-between">
                 <div>
-                    <h3 class="text-2xl font-bold text-gray-800 mb-4">{{ $produk->nama_produk }}</h3>
-                    <p class="text-gray-600 mb-2">
-                        <span class="font-semibold">Deskripsi:</span> {{ $produk->deskripsi }}
-                    </p>
-                    <p class="text-gray-600 mb-2">
-                        <span class="font-semibold">Stok:</span> {{ $produk->stok }}
-                    </p>
-                    <p class="text-gray-600 mb-4">
-                        <span class="font-semibold">Lokasi:</span> {{ $produk->lokasi }}
-                    </p>
+                    <h3 class="text-3xl font-extrabold text-gray-800 dark:text-gray-100 mb-6">
+                        {{ $produk->nama_produk }}
+                    </h3>
+
+                    <div class="space-y-3 text-gray-700 dark:text-gray-300">
+                        <p><span class="font-semibold text-gray-900 dark:text-gray-200">Deskripsi:</span> {{ $produk->deskripsi }}</p>
+                        <p><span class="font-semibold text-gray-900 dark:text-gray-200">Stok:</span> {{ $produk->stok }}</p>
+                        <p><span class="font-semibold text-gray-900 dark:text-gray-200">Lokasi:</span> {{ $produk->lokasi }}</p>
+                    </div>
                 </div>
 
                 <!-- Tombol Aksi -->
-                <div class="flex gap-4 mt-6">
+                <div class="flex gap-4 mt-8">
                     <!-- Approve -->
                     <form action="{{ route('admin.validasi.approve', $produk->id) }}" method="POST">
                         @csrf
                         <button type="submit"
-                            class="bg-green-600 hover:bg-green-700 text-white px-4 py-2 rounded-md">
-                            Setujui
+                            class="bg-green-600 hover:bg-green-700 text-white px-6 py-2.5 rounded-xl shadow-md transition">
+                             Setujui
                         </button>
                     </form>
 
@@ -45,8 +46,8 @@
                     <form id="form-reject" action="{{ route('admin.validasi.reject', $produk->id) }}" method="POST">
                         @csrf
                         <button type="button" id="btn-reject"
-                            class="bg-red-600 hover:bg-red-700 text-white px-4 py-2 rounded-md">
-                            Tolak
+                            class="bg-red-600 hover:bg-red-700 text-white px-6 py-2.5 rounded-xl shadow-md transition">
+                             Tolak
                         </button>
                     </form>
                 </div>
@@ -99,8 +100,6 @@
             if (result.isConfirmed) {
                 document.getElementById('form-reject').submit();
             }
-        }).then(() => {
-            window.location.href = "{{ route('admin.produk.index') }}"
         });
     });
 </script>

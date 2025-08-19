@@ -13,7 +13,7 @@
                 <div class="overflow-x-auto bg-white rounded-xl shadow-inner">
                     <table class="w-full text-left border-collapse">
                         <thead>
-                            <tr class="bg-[#0A1A2F] text-white">
+                            <tr class="bg-[#1F2544] text-white">
                                 <th class="p-3 text-sm font-semibold">Produk</th>
                                 <th class="p-3 text-sm font-semibold">Pembeli</th>
                                 <th class="p-3 text-sm font-semibold">Jumlah</th>
@@ -66,4 +66,5 @@
             </div>
         </div>
     </div>
+    
 </x-app-layout>
