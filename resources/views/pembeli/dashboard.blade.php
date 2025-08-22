@@ -81,7 +81,7 @@
                         alt="Benang wol"
                         class="w-32 h-32 object-cover rounded-md shadow-md">
                     <span class="text-2xl font-bold">→</span>
-                    <img src="{{ asset('image/tas.png') }}"
+                    <img src="{{ asset('image/bebek.png') }}"
                         alt="Kerajinan benang wol"
                         class="w-32 h-32 object-cover rounded-md shadow-md">
                 </div>

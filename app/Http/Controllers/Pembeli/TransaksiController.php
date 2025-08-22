@@ -13,10 +13,11 @@ class TransaksiController extends Controller
 {
     public function index()
     {
-        $transaksis = Transaksi::with('produk')
-            ->where('user_id', Auth::id())
-            ->latest()
-            ->get();
+        $transaksis = Transaksi::with(['transaksis.produk'])
+        ->where('user_id', Auth::id())
+        ->latest()
+        ->get();
+
 
         return view('pembeli.transaksi.index', compact('transaksis'));
     }

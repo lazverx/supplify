@@ -3,18 +3,17 @@
     <div class="max-w-5xl mx-auto py-8 px-4 animate-fadeIn">
 
         <div class="bg-white rounded-xl shadow-lg overflow-hidden grid grid-cols-1 md:grid-cols-2">
-            
+
             {{-- Left Info Section --}}
             <div class="bg-[#FAE3AC] p-8 flex flex-col justify-center">
-                <p class="text-sm text-gray-800 mb-2">kami siap membantu</p>
-                <h3 class="text-2xl font-bold text-[#2D3250] mb-4">Edit Produk Anda di Suplify</h3>
-                <p class="text-gray-700 mb-6">
-                    Isi formulir di samping untuk memperbarui informasi produk Anda agar tetap menarik 
+                <p class="uppercase text-sm tracking-widest text-[#0A1B2F]">Kami Siap Membantu</p>
+                <h2 class="text-3xl font-bold text-[#0A1B2F] mt-2 leading-snug">
+                    Edit Produk Anda di<br> Supplify
+                </h2>
+                <p class="text-[#0A1B2F]/80 mt-4 text-sm">
+                    Isi formulir di samping untuk memperbarui informasi produk Anda agar tetap menarik
                     dan relevan bagi pembeli yang tepat.
                 </p>
-                <div class="flex items-center text-gray-800 font-medium">
-                    <span class="mr-2">📞</span> +62 123 4567 890
-                </div>
             </div>
 
             {{-- Right Form Section --}}
@@ -84,9 +83,19 @@
 
     <style>
         @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(10px); }
-            to { opacity: 1; transform: translateY(0); }
+            from {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
         }
-        .animate-fadeIn { animation: fadeIn 0.4s ease-in-out; }
+
+        .animate-fadeIn {
+            animation: fadeIn 0.4s ease-in-out;
+        }
     </style>
 </x-app-layout>

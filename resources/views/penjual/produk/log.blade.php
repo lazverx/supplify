@@ -1,41 +1,42 @@
 <x-app-layout>
     <x-slot name="header">
-        <h2 class="text-2xl font-bold text-black tracking-wide">
+        <h2 class="text-2xl font-bold text-white tracking-wide">
             Riwayat Produk
         </h2>
     </x-slot>
 
-   <div class="max-w-7xl mx-auto py-8 px-4 sm:px-6 lg:px-8 animate-fadeIn">
+    <div class="max-w-7xl mx-auto py-8 px-4 sm:px-6 lg:px-8 animate-fadeIn">
         <div class="bg-[#FAE3AC] shadow-lg rounded-lg p-6">
-            
-        {{-- Search & Tambah Produk --}}
+
+            {{-- Search & Tambah Produk --}}
             <div class="flex flex-col md:flex-row justify-between items-center gap-4 mb-6">
                 <form action="{{ route('penjual.produk.index') }}" method="GET" class="flex items-center gap-2">
                     <input type="text" name="search" placeholder="Cari produk..."
+                        value="{{ old('search', $search ?? '') }}"
                         class="px-4 py-2 rounded-lg bg-white text-[#2D3250]" />
                     <button type="submit"
                         class="bg-[#ffffff] hover:bg-[#ffffff] text-[#FAE3AC] px-4 py-2 rounded-lg font-semibold transition">
-                       <img src="{{ asset('image/icons/search.svg') }}" alt="search" class="w-5 h-5">
+                        <img src="{{ asset('image/icons/search.svg') }}" alt="search" class="w-5 h-5">
                     </button>
                 </form>
-                
+
             </div>
 
             {{-- Tabel --}}
             <div class="overflow-x-auto rounded-lg">
                 <table class="min-w-full text-sm text-left border-collapse">
                     <thead class="bg-[#2D3250] text-[#FAE3AC] uppercase text-xs">
-                    <tr>
-                        <th class="px-4 py-3">No</th>
-                        <th class="px-4 py-3">Nama Produk</th>
-                        <th class="px-4 py-3">Deskripsi</th>
-                        <th class="px-4 py-3">Foto Produk</th>
-                        <th class="px-4 py-3">Status</th>
-                        <th class="px-4 py-3">Pesan</th>
-                    </tr>
-                </thead>
-                <tbody class="bg-white">
-                    @forelse ($produks as $index => $produk)
+                        <tr>
+                            <th class="px-4 py-3">No</th>
+                            <th class="px-4 py-3">Nama Produk</th>
+                            <th class="px-4 py-3">Deskripsi</th>
+                            <th class="px-4 py-3">Foto Produk</th>
+                            <th class="px-4 py-3">Status</th>
+                            <th class="px-4 py-3">Pesan</th>
+                        </tr>
+                    </thead>
+                    <tbody class="bg-white">
+                        @forelse ($produks as $index => $produk)
                         <tr class="border-t hover:bg-[#FAE3AC]/30 transition">
                             <td class="px-4 py-3 text-[#2D3250]">{{ $index + 1 }}</td>
                             <td class="px-4 py-3 font-medium text-[#2D3250]">{{ $produk->nama_produk }}</td>
@@ -43,52 +44,60 @@
                                 {{ $produk->deskripsi }}
                             </td>
                             <td class="px-4 py-3">
-                                <img src="{{ asset('storage/' . $produk->foto) }}" 
-                                     alt="{{ $produk->nama_produk }}"
-                                     class="w-16 h-16 object-cover rounded-lg border border-[#2D3250] shadow-sm mx-auto" />
+                                <img src="{{ asset('storage/' . $produk->foto) }}"
+                                    alt="{{ $produk->nama_produk }}"
+                                    class="w-16 h-16 object-cover rounded-lg border border-[#2D3250] shadow-sm mx-auto" />
                             </td>
                             <td class="px-4 py-3">
                                 @if ($produk->status === 'pending')
-                                    <span class="text-yellow-600 font-semibold">Pending</span>
+                                <span class="text-yellow-600 font-semibold">Pending</span>
                                 @elseif ($produk->status === 'approved')
-                                    <span class="text-green-600 font-semibold">Approved</span>
+                                <span class="text-green-600 font-semibold">Approved</span>
                                 @elseif ($produk->status === 'rejected')
-                                    <span class="text-red-600 font-semibold">Rejected</span>
+                                <span class="text-red-600 font-semibold">Rejected</span>
                                 @else
-                                    <span class="text-gray-500">-</span>
+                                <span class="text-gray-500">-</span>
                                 @endif
                             </td>
                             <td class="px-4 py-3 max-w-xs text-sm">
                                 @if ($produk->status === 'pending')
-                                    <p class="text-yellow-700">Produk anda saat ini masih menunggu validasi oleh admin.</p>
+                                <p class="text-yellow-700">Produk anda saat ini masih menunggu validasi oleh admin.</p>
                                 @elseif ($produk->status === 'approved')
-                                    <p class="text-green-700">Produk anda sudah disetujui dan akan tampil di halaman marketplace.</p>
+                                <p class="text-green-700">Produk anda sudah disetujui dan akan tampil di halaman marketplace.</p>
                                 @elseif ($produk->status === 'rejected')
-                                    <p class="text-red-700">Produk anda ditolak, mohon periksa dan revisi data produk anda.</p>
+                                <p class="text-red-700">Produk anda ditolak, mohon periksa dan revisi data produk anda.</p>
                                 @else
-                                    <p class="text-gray-500">Status tidak diketahui.</p>
+                                <p class="text-gray-500">Status tidak diketahui.</p>
                                 @endif
                             </td>
                         </tr>
-                    @empty
+                        @empty
                         <tr>
                             <td colspan="6" class="text-center px-4 py-6 text-gray-500">
                                 Belum ada produk yang diajukan.
                             </td>
                         </tr>
-                    @endforelse
-                </tbody>
-            </table>
+                        @endforelse
+                    </tbody>
+                </table>
+            </div>
         </div>
-    </div>
 
-    <style>
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(10px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-        .animate-fadeIn {
-            animation: fadeIn 0.4s ease-in-out;
-        }
-    </style>
+        <style>
+            @keyframes fadeIn {
+                from {
+                    opacity: 0;
+                    transform: translateY(10px);
+                }
+
+                to {
+                    opacity: 1;
+                    transform: translateY(0);
+                }
+            }
+
+            .animate-fadeIn {
+                animation: fadeIn 0.4s ease-in-out;
+            }
+        </style>
 </x-app-layout>
