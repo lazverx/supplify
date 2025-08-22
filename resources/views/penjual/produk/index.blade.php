@@ -1,6 +1,6 @@
 <x-app-layout>
     <x-slot name="header">
-        <h2 class="text-2xl font-bold text-black tracking-wide">
+        <h2 class="text-2xl font-bold text-white tracking-wide">
             Produk Saya
         </h2>
     </x-slot>
@@ -12,12 +12,14 @@
             <div class="flex flex-col md:flex-row justify-between items-center gap-4 mb-6">
                 <form action="{{ route('penjual.produk.index') }}" method="GET" class="flex items-center gap-2">
                     <input type="text" name="search" placeholder="Cari produk..."
+                        value="{{ old('search', $search ?? '') }}"
                         class="px-4 py-2 rounded-lg bg-white text-[#2D3250]" />
                     <button type="submit"
                         class="bg-[#ffffff] hover:bg-[#ffffff] text-[#FAE3AC] px-4 py-2 rounded-lg font-semibold transition">
-                       <img src="{{ asset('image/icons/search.svg') }}" alt="search" class="w-5 h-5">
+                        <img src="{{ asset('image/icons/search.svg') }}" alt="search" class="w-5 h-5">
                     </button>
                 </form>
+
                 <a href="{{ route('penjual.produk.create') }}"
                     class="bg-[#2D3250] hover:bg-[#1f233a] text-[#FAE3AC] px-5 py-2 rounded-lg font-semibold transition">
                     + Tambah Produk
@@ -112,7 +114,7 @@
 <script>
     // Konfirmasi sebelum hapus
     document.querySelectorAll('.delete-btn').forEach(button => {
-        button.addEventListener('click', function (e) {
+        button.addEventListener('click', function(e) {
             e.preventDefault();
             let form = this.closest('form');
 

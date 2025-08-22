@@ -9,11 +9,29 @@ use Illuminate\Support\Facades\Auth;
 
 class ProdukController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-        $produks = Produk::where('user_id', Auth::id())->get();
-        return view('penjual.produk.index', compact('produks'));
+        // Ambil keyword dari input form (misalnya name="search")
+        $search = $request->input('search');
+
+        // Query produk milik penjual yang login
+        $query = Produk::where('user_id', Auth::id());
+
+        // Kalau ada keyword, filter berdasarkan nama_produk atau deskripsi
+        if ($search) {
+            $query->where(function ($q) use ($search) {
+                $q->where('nama_produk', 'like', '%' . $search . '%')
+                    ->orWhere('deskripsi', 'like', '%' . $search . '%');
+            });
+        }
+
+        // Ambil hasil query
+        $produks = $query->orderByDesc('created_at')->get();
+
+        // Kirim ke view
+        return view('penjual.produk.index', compact('produks', 'search'));
     }
+
 
     public function create()
     {
@@ -43,9 +61,8 @@ class ProdukController extends Controller
             'stok' => $request->stok,
             'lokasi' => $request->lokasi,
         ]);
-     
+
         return redirect()->back()->with('success', 'Produk berhasil diajukan');
-        
     }
 
     public function edit(Produk $produk)
@@ -84,8 +101,22 @@ class ProdukController extends Controller
         return redirect()->back()->with('success', 'Produk berhasil diperbaharui');
     }
 
-    public function log()
+    public function log(Request $request)
     {
+         // Ambil keyword dari input form (misalnya name="search")
+        $search = $request->input('search');
+
+        // Query produk milik penjual yang login
+        $query = Produk::where('user_id', Auth::id());
+
+        // Kalau ada keyword, filter berdasarkan nama_produk atau deskripsi
+        if ($search) {
+            $query->where(function ($q) use ($search) {
+                $q->where('nama_produk', 'like', '%' . $search . '%')
+                    ->orWhere('deskripsi', 'like', '%' . $search . '%');
+            });
+        }
+
         $produks = Produk::where('user_id', Auth::id())->orderByDesc('created_at')->get();
         return view('penjual.produk.log', compact('produks'));
     }

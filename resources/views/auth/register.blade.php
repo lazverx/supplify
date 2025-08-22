@@ -1,29 +1,31 @@
 <x-guest-layout>
-    <div class="min-h-screen flex items-center justify-center bg-gray-100 px-4 py-8">
-        <div class="flex flex-col md:flex-row bg-[#1F2544] rounded-2xl shadow-2xl overflow-hidden w-full max-w-5xl min-h-[600px]">
+    <!-- Tambahkan AOS CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.css" rel="stylesheet">
+
+    <div class="min-h-screen flex items-center justify-center px-4 py-8">
+        <div class="flex flex-col md:flex-row bg-[#1F2544] rounded-2xl shadow-2xl overflow-hidden w-full max-w-5xl min-h-[600px]" data-aos="zoom-in" data-aos-duration="1000">
             
             <!-- Bagian Gambar -->
-            <div class="md:w-1/2 hidden md:block">
+            <div class="md:w-1/2 hidden md:block" data-aos="fade-right" data-aos-duration="1200">
                 <img
                     src="{{ asset('image/login-image.jpg') }}"
                     alt="Register Image"
                     class="object-cover h-full w-full"
                 />
-                
             </div>
 
             <!-- Bagian Form -->
-            <div class="md:w-1/2 w-full p-10 text-white flex flex-col justify-center">
-                <h2 class="text-2xl md:text-3xl font-bold mx-auto mb-8">Create an account</h2>
+            <div class="md:w-1/2 w-full p-10 text-white flex flex-col justify-center" data-aos="fade-left" data-aos-duration="1200">
+                <h2 class="text-2xl md:text-3xl font-bold mx-auto mb-8" data-aos="fade-down" data-aos-delay="200">Create an account</h2>
 
                 <form method="POST" action="{{ route('register') }}">
                     @csrf
 
                     <!-- Name -->
-                    <div class="mb-4">
+                    <div class="mb-4" data-aos="fade-up" data-aos-delay="300">
                         <x-text-input 
                             id="name" 
-                            class="w-[400px] h-[55px] ml-4 px-4 py-3 rounded-lg bg-[#2F365E] text-white border-0 focus:outline-none focus:ring-0" 
+                            class="w-[400px] h-[55px] ml-4 px-4 py-3 rounded-lg bg-[#2F365E] text-white border-0 focus:outline-none focus:ring-2 focus:ring-yellow-400" 
                             type="text" 
                             name="name" 
                             :value="old('name')" 
@@ -35,11 +37,11 @@
                     </div>
 
                     <!-- Email -->
-                    <div class="mb-4">
+                    <div class="mb-4" data-aos="fade-up" data-aos-delay="400">
                         <x-text-input 
                             id="email" 
                             type="email" 
-                            class="w-[400px] h-[55px] ml-4 px-4 py-3 rounded-lg bg-[#2F365E] text-white border-0 focus:outline-none focus:ring-0" 
+                            class="w-[400px] h-[55px] ml-4 px-4 py-3 rounded-lg bg-[#2F365E] text-white border-0 focus:outline-none focus:ring-2 focus:ring-yellow-400" 
                             name="email" 
                             :value="old('email')" 
                             required 
@@ -49,10 +51,10 @@
                     </div>
 
                     <!-- Password -->
-                    <div class="mb-4">
+                    <div class="mb-4" data-aos="fade-up" data-aos-delay="500">
                         <x-text-input 
                             id="password" 
-                            class="w-[400px] h-[55px] ml-4 px-4 py-3 rounded-lg bg-[#2F365E] text-white border-0 focus:outline-none focus:ring-0" 
+                            class="w-[400px] h-[55px] ml-4 px-4 py-3 rounded-lg bg-[#2F365E] text-white border-0 focus:outline-none focus:ring-2 focus:ring-yellow-400" 
                             type="password" 
                             name="password" 
                             required 
@@ -62,10 +64,10 @@
                     </div>
 
                     <!-- Confirm Password -->
-                    <div class="mb-4">
+                    <div class="mb-4" data-aos="fade-up" data-aos-delay="600">
                         <x-text-input 
                             id="password_confirmation" 
-                            class="w-[400px] h-[55px] ml-4 px-4 py-3 rounded-lg bg-[#2F365E] text-white border-0 focus:outline-none focus:ring-0" 
+                            class="w-[400px] h-[55px] ml-4 px-4 py-3 rounded-lg bg-[#2F365E] text-white border-0 focus:outline-none focus:ring-2 focus:ring-yellow-400" 
                             type="password" 
                             name="password_confirmation" 
                             required 
@@ -75,12 +77,12 @@
                     </div>
 
                     <!-- Role -->
-                    <div class="mb-6">
+                    <div class="mb-6" data-aos="fade-up" data-aos-delay="700">
                         <select 
                             id="role" 
                             name="role" 
                             required 
-                            class="w-[400px] h-[55px] ml-4 px-4 py-3 rounded-lg bg-[#2F365E] text-white border-0 focus:outline-none focus:ring-0" 
+                            class="w-[400px] h-[55px] ml-4 px-4 py-3 rounded-lg bg-[#2F365E] text-white border-0 focus:outline-none focus:ring-2 focus:ring-yellow-400" 
                         >
                             <option value="">Pilih Role</option>
                             <option value="pembeli" {{ old('role') == 'pembeli' ? 'selected' : '' }}>Pembeli</option>
@@ -90,7 +92,7 @@
                     </div>
 
                     <!-- Submit Button -->
-                    <div class="mb-6">
+                    <div class="mb-6" data-aos="fade-up" data-aos-delay="800">
                         <button 
                             type="submit" 
                             class="w-[400px] h-[55px] ml-4 bg-[#FAE3AC] hover:bg-[#e2cd90] text-[#1F2544] font-bold py-3 rounded transition duration-300">
@@ -99,7 +101,7 @@
                     </div>
 
                     <!-- Login Link -->
-                    <p class="text-sm text-center">
+                    <p class="text-sm text-center" data-aos="fade-up" data-aos-delay="900">
                         Already Registered? 
                         <a href="{{ route('login') }}" class="text-yellow-400 hover:text-yellow-300">
                             Login here
@@ -109,4 +111,13 @@
             </div>
         </div>
     </div>
+
+    <!-- Tambahkan AOS JS -->
+    <script src="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.js"></script>
+    <script>
+        AOS.init({
+            once: true, // animasi hanya sekali
+            offset: 100, // jarak sebelum animasi mulai
+        });
+    </script>
 </x-guest-layout>
