@@ -6,6 +6,7 @@ namespace App\Http\Controllers\Pembeli;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Auth;
 use App\Models\Produk;
 use App\Models\Transaksi;
 use App\Models\TransaksiItem;
@@ -14,30 +15,39 @@ use App\Models\TransaksiItem;
 class TransaksiSimulasiController extends Controller
 {
     // Halaman checkout, terima produk
-    public function checkout(Produk $produk)
+    public function checkout($id)
     {
-        return view('pembeli.transaksi.checkout', compact('produk'));
+        $produk = Produk::findOrFail($id);
+
+        // ambil user login + profile (eager loading)
+        $user = \App\Models\User::with('profile')->find(Auth::id());
+
+        return view('pembeli.transaksi.checkout', compact('produk', 'user'));
     }
 
     // Proses pembayaran
     public function bayar(Request $request)
     {
+        // validasi
         $validated = $request->validate([
             'produk_id' => 'required|exists:produks,id',
-            'jumlah' => 'required|integer|min:1',
+            'jumlah' => 'nullable|integer|min:1',
             'alamat_pengiriman' => 'required|string|max:255',
         ]);
 
         $produk = Produk::findOrFail($validated['produk_id']);
 
-        // Cek stok sebelum diproses
-        if ($produk->stok < $validated['jumlah']) {
+        // ambil qty dari request, default 1 kalau tidak ada
+        $qty = (int) $request->input('jumlah', 1);
+
+        // cek stok dengan $qty
+        if ($produk->stok < $qty) {
             return back()->with('error', 'Stok produk tidak mencukupi.');
         }
 
         DB::beginTransaction();
         try {
-            $qty = $validated['jumlah'];
+            $qty = $request->input('jumlah', 1); // default 1 kalau tidak ada
             $total_harga = $produk->harga * $qty;
 
             // Simpan transaksi (header)

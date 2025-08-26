@@ -1,4 +1,3 @@
-<!-- resources/views/admin/users/show.blade.php -->
 <x-app-layout>
     <x-slot name="header">
         <h2 class="font-semibold text-xl text-[#2D3250] dark:text-gray-200 leading-tight">
@@ -20,9 +19,27 @@
                                 <th class="text-left py-3 px-4 font-medium">Email</th>
                                 <td class="py-3 px-4">{{ $user->email }}</td>
                             </tr>
-                            <tr>
+                            <tr class="border-b border-[#2D3250]/20">
                                 <th class="text-left py-3 px-4 font-medium">Role</th>
                                 <td class="py-3 px-4">{{ ucfirst($user->role) }}</td>
+                            </tr>
+
+                            {{-- Data dari tabel profiles --}}
+                            <tr class="border-b border-[#2D3250]/20">
+                                <th class="text-left py-3 px-4 font-medium">Alamat</th>
+                                <td class="py-3 px-4">{{ $user->profile->alamat ?? '-' }}</td>
+                            </tr>
+                            <tr class="border-b border-[#2D3250]/20">
+                                <th class="text-left py-3 px-4 font-medium">No. HP</th>
+                                <td class="py-3 px-4">{{ $user->profile->no_hp ?? '-' }}</td>
+                            </tr>
+                            <tr class="border-b border-[#2D3250]/20">
+                                <th class="text-left py-3 px-4 font-medium">Email Kontak</th>
+                                <td class="py-3 px-4">{{ $user->profile->email_kontak ?? '-' }}</td>
+                            </tr>
+                            <tr>
+                                <th class="text-left py-3 px-4 font-medium">Nama Perusahaan</th>
+                                <td class="py-3 px-4">{{ $user->profile->nama_perusahaan ?? '-' }}</td>
                             </tr>
                         </tbody>
                     </table>

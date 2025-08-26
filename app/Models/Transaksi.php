@@ -21,7 +21,7 @@ class Transaksi extends Model
     {
         return $this->belongsTo(Produk::class);
     }
-    
+
     public function pembeli()
     {
         return $this->belongsTo(User::class, 'user_id');
@@ -29,15 +29,28 @@ class Transaksi extends Model
 
     public function transaksis()
     {
-        return $this->hasMany(TransaksiItem::class);
+        return $this->hasMany(TransaksiItem::class, 'transaksi_id');
     }
 
-    public function transaksisProduk()
-{
-    return $this->hasMany(TransaksiItem::class, 'transaksi_id')
-        ->whereHas('produk', function ($q) {
-            $q->where('user_id', auth()->id());
-        });
-}
+    // public function items()
+    // {
+    //     return $this->hasMany(TransaksiItem::class, 'transaksi_id');
+    // }
 
+    public function transaksisProduk()
+    {
+        return $this->hasMany(TransaksiItem::class, 'transaksi_id')
+            ->whereHas('produk', function ($q) {
+                $q->where('user_id', auth()->id());
+            });
+    }
+
+
+    public function itemsByPenjual($penjualId)
+    {
+        return $this->hasMany(TransaksiItem::class, 'transaksi_id')
+            ->whereHas('produk', function ($q) use ($penjualId) {
+                $q->where('user_id', $penjualId);
+            });
+    }
 }

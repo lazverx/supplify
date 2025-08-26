@@ -17,12 +17,7 @@
             </div>
         </div>
 
-        <div id="pembeli-checkout"
-            data-harga="{{ $produk->harga }}"
-            data-stok="{{ $produk->stok }}">
-        </div>
-
-        <form action="{{ route('pembeli.transaksi.bayar') }}" method="POST" class="grid md:grid-cols-3 gap-6">
+        <form action="{{ route('pembeli.cart.checkout') }}" method="POST" class="grid md:grid-cols-3 gap-6">
             @csrf
 
             {{-- Kolom Kiri: Metode Pembayaran --}}
@@ -50,35 +45,30 @@
             {{-- Kolom Kanan: Ringkasan Pesanan --}}
             <div class="bg-white p-6 rounded-lg shadow">
                 <h3 class="text-lg font-semibold mb-4">Ringkasan Pesanan</h3>
-                <div class="flex items-center mb-4">
-                    <img src="{{ asset('storage/' . $produk->foto) }}" alt="{{ $produk->nama }}" class="w-20 h-20 rounded mr-4 object-cover">
-                    <div>
-                        <h4 class="font-semibold">{{ $produk->nama }}</h4>
-                        <p class="text-gray-600 text-sm">Rp {{ number_format($produk->harga, 0, ',', '.') }}</p>
-                    </div>
-                </div>
 
-                {{-- Hidden inputs untuk data transaksi --}}
-                <input type="hidden" name="produk_id" value="{{ $produk->id }}">
-                <input type="hidden" name="alamat_pengiriman" value="{{ $user->profile->alamat ?? 'Belum diisi' }}">
+                @php $total = 0; @endphp
+                @foreach ($cartItems as $item)
+                    @php 
+                        $subtotal = $item->produk->harga * $item->qty;
+                        $total += $subtotal;
+                    @endphp
+                    <div class="flex items-center mb-4">
+                        <img src="{{ asset('storage/' . $item->produk->foto) }}" alt="{{ $item->produk->nama_produk }}" class="w-20 h-20 rounded mr-4 object-cover">
+                        <div>
+                            <h4 class="font-semibold">{{ $item->produk->nama_produk }}</h4>
+                            <p class="text-gray-600 text-sm">Rp {{ number_format($item->produk->harga, 0, ',', '.') }} x {{ $item->qty }}</p>
+                            <p class="font-bold">Rp {{ number_format($subtotal, 0, ',', '.') }}</p>
+                        </div>
+                    </div>
+                @endforeach
+
+                {{-- Hidden input supaya server-side tahu ini checkout cart --}}
+                <input type="hidden" name="checkout_type" value="cart">
 
                 <div class="border-t pt-4 mt-4 space-y-2">
-                    <div class="mb-4">
-                        <label class="block text-sm font-medium">Jumlah</label>
-                        <input
-                            type="number"
-                            id="jumlah"
-                            name="jumlah"
-                            min="1"
-                            max="{{ $produk->stok }}"
-                            value="1"
-                            class="mt-1 block w-full rounded border px-3 py-2"
-                            required>
-                    </div>
-
                     <p class="flex justify-between text-gray-700">
                         <span>Total</span>
-                        <span class="font-bold" id="total-harga">Rp {{ number_format($produk->harga, 0, ',', '.') }}</span>
+                        <span class="font-bold">Rp {{ number_format($total, 0, ',', '.') }}</span>
                     </p>
                     <p id="metode-pembayaran-ringkasan" class="flex justify-between text-gray-700">
                         <span>Metode Pembayaran</span>
@@ -93,7 +83,6 @@
         </form>
     </div>
 </x-app-layout>
-
 
 {{-- SweetAlert2 --}}
 <script src="{{ asset('js/sweetalert2.all.min.js') }}"></script>
@@ -123,45 +112,15 @@
 </script>
 @endif
 
-{{-- Script interaktif untuk metode pembayaran & total harga --}}
 <script>
 document.addEventListener('DOMContentLoaded', () => {
-  const root = document.getElementById('pembeli-checkout');
-
-  // ambil data dari atribut HTML (aman untuk editor)
-  const hargaSatuan = Number(root?.dataset.harga ?? 0);
-  const stok = Number(root?.dataset.stok ?? 0);
-
   const radios = document.querySelectorAll('input[name="metode_pembayaran"]');
   const ringkasanText = document.getElementById('metode-pembayaran-text');
-  const jumlahInput = document.getElementById('jumlah');
-  const totalHargaText = document.getElementById('total-harga');
 
-  // safety checks
-  if (!jumlahInput || !totalHargaText || !ringkasanText) return;
-
-  // update metode pembayaran
   radios.forEach(radio => {
     radio.addEventListener('change', function() {
       ringkasanText.textContent = this.value;
     });
   });
-
-  // fungsi update total
-  const updateTotal = () => {
-    let qty = parseInt(jumlahInput.value, 10) || 1;
-    if (qty < 1) qty = 1;
-    if (qty > stok) {
-      qty = stok;
-      jumlahInput.value = stok; // clamp ke stok maksimum
-    }
-    const total = hargaSatuan * qty;
-    totalHargaText.textContent = 'Rp ' + total.toLocaleString('id-ID');
-  };
-
-  jumlahInput.addEventListener('input', updateTotal);
-
-  // trigger awal supaya total muncul sesuai default
-  updateTotal();
 });
 </script>

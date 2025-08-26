@@ -11,13 +11,18 @@ class TransaksiController extends Controller
 {
     public function index()
 {
-    $transaksis = Transaksi::whereHas('transaksis.produk', function ($query) {
-        $query->where('user_id', auth()->id());
-    })
-    ->with([
+    $penjualId = auth()->id();
+
+    $transaksis = \App\Models\Transaksi::with([
         'pembeli',
-        'transaksis.produk'
+        'transaksisProduk.produk' => function ($q) use ($penjualId) {
+            $q->where('user_id', $penjualId);
+        }
     ])
+    ->whereHas('transaksis.produk', function ($q) use ($penjualId) {
+        $q->where('user_id', $penjualId);
+    })
+    ->orderByDesc('created_at')
     ->get();
 
     return view('penjual.transaksi.index', compact('transaksis'));

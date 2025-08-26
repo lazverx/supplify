@@ -53,41 +53,45 @@
     </div>
 
     {{-- Contoh Kreasi Produk --}}
-    <section id="produk" class="bg-[#1F2544] rounded-[10px] p-6 md:p-8 mb-8 mx-8">
-        <h2 class="text-white font-bold text-2xl md:text-3xl mb-10 text-center" data-aos="fade-up" data-aos-duration="1000">
-            Contoh Kreasi Produk
+    <section class="bg-[#1F2544] rounded-[10px] p-6 md:p-8 mb-8 mx-8" data-aos="fade-up" data-aos-duration="1000">
+        <h2 class="text-white font-bold text-2xl md:text-3xl mb-10 text-center" data-aos="fade-down" data-aos-duration="900">
+            contoh kreasi produk
         </h2>
-
         <div class="grid md:grid-cols-2 gap-6">
-            <!-- Ikat Pinggang -->
-            <div class="bg-[#FAE3AC] rounded-lg p-6 flex flex-col items-center text-center" data-aos="fade-up" data-aos-delay="200">
-                <h3 class="text-xl font-semibold text-gray-800 mb-4">Kulit Sintetis</h3>
+
+            {{-- Kulit sintetis jadi Sabuk --}}
+            <div class="bg-[#FAE3AC] rounded-lg p-6 flex flex-col items-center text-center" data-aos="flip-left" data-aos-duration="1000">
+                <h3 class="text-xl font-semibold text-gray-800 mb-4">Kulit sintetis</h3>
                 <div class="flex items-center gap-4">
-                    <img src="{{ asset('image/leather.jpg') }}"
-                        alt="Bahan kulit"
-                        class="w-32 h-32 object-cover rounded-md shadow-md">
+                    <img src="{{ asset('image/leather.jpg') }}" class="w-32 h-32 object-cover rounded-md">
                     <span class="text-2xl font-bold">→</span>
-                    <img src="{{ asset('image/belts.jpg') }}"
-                        alt="Ikat pinggang jadi"
-                        class="w-32 h-32 object-cover rounded-md shadow-md">
+                    <img src="{{ asset('image/belts.jpg') }}" class="w-32 h-32 object-cover rounded-md">
                 </div>
+                <p class="mt-4 text-gray-700 leading-relaxed">
+                    Dari potongan <span class="font-semibold">kulit sintetis</span>, kita bisa membuat <span class="font-semibold">sabuk handmade</span>.
+                    Prosesnya tidak sulit, cukup dengan sedikit keterampilan menjahit dan alat sederhana.
+                    Hasil akhirnya kokoh, elegan, dan ramah lingkungan karena memanfaatkan bahan sisa yang biasanya terbuang.
+                </p>
             </div>
 
-            <!-- Benang Wol -->
-            <div class="bg-[#FAE3AC] rounded-lg p-6 flex flex-col items-center text-center" data-aos="fade-up" data-aos-delay="400">
-                <h3 class="text-xl font-semibold text-gray-800 mb-4">Benang Wol</h3>
+            {{-- Benang jadi Boneka Rajut --}}
+            <div class="bg-[#FAE3AC] rounded-lg p-6 flex flex-col items-center text-center" data-aos="flip-right" data-aos-duration="1000">
+                <h3 class="text-xl font-semibold text-gray-800 mb-4">Benang wol</h3>
                 <div class="flex items-center gap-4">
-                    <img src="{{ asset('image/benang.png') }}"
-                        alt="Benang wol"
-                        class="w-32 h-32 object-cover rounded-md shadow-md">
+                    <img src="{{ asset('image/benang.png') }}" class="w-32 h-32 object-cover rounded-md">
                     <span class="text-2xl font-bold">→</span>
-                    <img src="{{ asset('image/bebek.png') }}"
-                        alt="Kerajinan benang wol"
-                        class="w-32 h-32 object-cover rounded-md shadow-md">
+                    <img src="{{ asset('image/bebek.png') }}" class="w-32 h-32 object-cover rounded-md">
                 </div>
+                <p class="mt-4 text-gray-700 leading-relaxed">
+                    Dari sisa <span class="font-semibold">benang wol</span>, kita bisa mengolahnya menjadi <span class="font-semibold">boneka rajut (amigurumi)</span>.
+                    Membuatnya membutuhkan kesabaran, tapi tidak sulit untuk dipelajari dengan pola sederhana.
+                    Produk ini sangat diminati karena unik, lucu, dan bisa jadi hadiah spesial buatan tangan.
+                </p>
             </div>
+
         </div>
     </section>
+
 
     {{-- Footer --}}
     <footer class="bg-[#FAE3AC] text-black"

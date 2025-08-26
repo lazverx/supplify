@@ -2,10 +2,12 @@
 
 // use App\Http\Controllers\CartController;
 
+use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\LogTransaksiController;
 use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\Admin\ProdukController as AdminProdukController;
 use App\Http\Controllers\Admin\ValidasiController;
+use App\Http\Controllers\LandingpageController;
 // use App\Http\Controllers\ProfileController;
 
 use App\Http\Controllers\Penjual\ProdukController as PenjualProdukController;
@@ -32,9 +34,7 @@ use App\Http\Controllers\Penjual\ProfileController as PenjualProfileController;
 |
 */
 
-Route::get('/', function () {
-    return view('landing-page');
-})->name('landing');
+Route::get('/', [LandingpageController::class, 'index'])->name('landing');
 
 
 
@@ -44,7 +44,8 @@ Route::get('/dashboard', function () {
 
 Route::middleware(['auth', 'admin'])->prefix('admin')->name('admin.')->group(function () {
     // Dashboard admin
-    Route::get('/dashboard', fn() => view('admin.dashboard'))->name('dashboard');
+    // Route::get('/dashboard', fn() => view('admin.dashboard'))->name('dashboard');
+    Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
 
     // Manajemen pengguna
     Route::get('/users', [UserController::class, 'index'])->name('users.index');
@@ -64,6 +65,7 @@ Route::middleware(['auth', 'admin'])->prefix('admin')->name('admin.')->group(fun
 
     // Manajemen Log Transaksi
     Route::get('/transaksi/log', [LogTransaksiController::class, 'index'])->name('transaksi.log');
+    Route::get('/transaksi/export-pdf', [LogTransaksiController::class, 'exportPdf'])->name('log-transaksi.export-pdf');
 });
 
 
@@ -122,6 +124,7 @@ Route::middleware(['auth', 'pembeli'])->prefix('pembeli')->name('pembeli.')->gro
     Route::get('/cart', [CartController::class, 'index'])->name('cart.index');
     Route::post('/cart', [CartController::class, 'store'])->name('cart.store');
     Route::delete('/cart/{id}', [CartController::class, 'destroy'])->name('cart.destroy');
+    Route::get('/cart/checkout', [CartController::class, 'cartCheckout'])->name('index.cartCheckout');
     Route::post('/cart/checkout', [CartController::class, 'checkout'])->name('cart.checkout');
 
     Route::get('/profile', [PembeliProfileController::class, 'index'])->name('profile.index');

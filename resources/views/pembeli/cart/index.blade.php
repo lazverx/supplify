@@ -44,12 +44,12 @@
 
                     <div class="flex justify-between items-center mt-6">
                         <p class="text-xl font-bold">Total: Rp {{ number_format($total, 0, ',', '.') }}</p>
-                        <form action="{{ route('pembeli.cart.checkout') }}" method="POST">
-                            @csrf
+                        <form action="{{ route('pembeli.cart.checkout') }}" method="GET">
                             <button type="submit" class="bg-blue-600 hover:bg-blue-700 text-white px-6 py-2 rounded-lg">
                                 Checkout Semua
                             </button>
                         </form>
+
                     </div>
                     @endif
                 </div>

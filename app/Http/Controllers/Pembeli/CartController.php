@@ -6,7 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\CartItem;
 use App\Models\Transaksi;
 use App\Models\TransaksiItem;
-use Illuminate\Http\Request;            
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 
@@ -21,6 +21,23 @@ class CartController extends Controller
 
         return view('pembeli.cart.index', compact('cartItems'));
     }
+
+    public function cartCheckout()
+    {
+        $cartItems = CartItem::with('produk')
+            ->where('user_id', Auth::id())
+            ->get();
+
+        if ($cartItems->isEmpty()) {
+            return redirect()->route('pembeli.cart.index')
+                ->with('error', 'Keranjang kosong.');
+        }
+
+        $user = Auth::user();
+
+        return view('pembeli.cart.checkout', compact('cartItems', 'user'));
+    }
+
 
     public function store(Request $request)
     {

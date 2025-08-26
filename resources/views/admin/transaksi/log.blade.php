@@ -1,12 +1,37 @@
 <x-app-layout>
     <x-slot name="header">
-        <h2 class="text-2xl font-bold text-black tracking-wide">
+        <h2 class="text-2xl font-bold text-white tracking-wide">
             Log Transaksi
         </h2>
     </x-slot>
 
     <div class="max-w-7xl mx-auto py-8 px-4 sm:px-6 lg:px-8 animate-fadeIn">
         <div class="bg-[#FAE3AC] shadow-lg rounded-xl p-6 border border-[#2D3250]">
+
+            {{-- 🔎 Filter Penjual + Export PDF --}}
+            <div class="flex items-center justify-between mb-6">
+                <form method="GET" action="{{ route('admin.transaksi.log') }}" class="flex items-center gap-3">
+                    <select name="penjual_id" class="border px-3 py-2 rounded-lg">
+                        <option value="">-- Semua Penjual --</option>
+                        @foreach($penjuals as $penjual)
+                        <option value="{{ $penjual->id }}" {{ request('penjual_id') == $penjual->id ? 'selected' : '' }}>
+                            {{ $penjual->name }}
+                        </option>
+                        @endforeach
+                    </select>
+                    <button type="submit" class="bg-[#2D3250] text-[#FAE3AC] px-4 py-2 rounded-lg hover:bg-[#2D3240]">
+                        Filter
+                    </button>
+                </form>
+
+                <a href="{{ route('admin.log-transaksi.export-pdf', ['penjual_id' => request('penjual_id')]) }}"
+                    class="px-4 py-2 bg-red-500 text-white rounded hover:bg-red-600 transition">
+                    Export PDF
+                </a>
+            </div>
+
+
+
             @php
             $groupedLogs = $logs->groupBy(function($item) {
             return $item->qty > 1 ? 'Pembelian Banyak' : 'Pembelian Satuan';
@@ -65,6 +90,11 @@
             </div>
             @endif
             @endforeach
+
+            {{-- 📄 Pagination --}}
+            <div class="mt-6">
+                {{ $logs->links() }}
+            </div>
         </div>
     </div>
 

@@ -8,17 +8,21 @@ use Illuminate\Http\Request;
 
 class UserController extends Controller
 {
-    public function index() {
+    public function index()
+    {
         $users = User::where('role', '!=', 'admin')->get();
         return view('admin.users.index', compact('users'));
     }
-    
-    public function show($id) {
-        $user = User::findOrFail($id);
+
+    public function show($id)
+    {
+        $user = User::with('profile')->findOrFail($id);
         return view('admin.users.show', compact('user'));
     }
 
-    public function destroy($id) {
+
+    public function destroy($id)
+    {
         $user = User::findOrFail($id);
         $user->delete();
         return redirect()->route('admin.users.index')->with('success', 'User deleted');
