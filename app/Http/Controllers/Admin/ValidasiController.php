@@ -30,7 +30,7 @@ class ValidasiController extends Controller
 
     public function log()
     {
-        $produk = Produk::whereIn('status', ['approved', 'rejected'])->latest()->get();
+        $produk = Produk::whereIn('status', ['approved', 'rejected'])->latest()->paginate(10);
         return view('admin.validasi.log', compact('produk'));
     }
 }

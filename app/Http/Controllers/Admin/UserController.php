@@ -5,14 +5,50 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Barryvdh\DomPDF\Facade\Pdf;
 
 class UserController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-        $users = User::where('role', '!=', 'admin')->get();
+        $query = User::query()->where('role', '!=', 'admin');
+
+        // Search by name or email
+        if ($request->filled('search')) {
+            $search = $request->search;
+            $query->where(function ($q) use ($search) {
+                $q->where('name', 'like', "%{$search}%")
+                    ->orWhere('email', 'like', "%{$search}%");
+            });
+        }
+
+        // Filter by role
+        if ($request->filled('role')) {
+            $query->where('role', $request->role);
+        }
+
+        // Pagination (10 per page)
+        $users = $query->paginate(10)->withQueryString();
+
         return view('admin.users.index', compact('users'));
     }
+
+    public function exportIndexPdf(Request $request)
+    {
+        $query = User::with('profile');
+
+        if ($request->has('role') && $request->role != '') {
+            $query->where('role', $request->role);
+        }
+
+        $users = $query->get(); // ambil semua hasil filter (tanpa paginate)
+
+        $pdf = Pdf::loadView('admin.users.index-pdf', compact('users'))
+            ->setPaper('a4', 'landscape');
+
+        return $pdf->download('daftar-user.pdf');
+    }
+
 
     public function show($id)
     {

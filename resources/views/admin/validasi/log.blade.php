@@ -65,7 +65,12 @@
                     </table>
                 </div>
             @endif
+            <!-- 🔽 Pagination -->
+            <div class="mt-8">
+                {{ $produk->links('pagination::tailwind') }}
+            </div>
         </div>
+
     </div>
 
     <style>

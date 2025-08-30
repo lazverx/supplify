@@ -13,7 +13,7 @@
                             <tr class="border-b border-gray-300 dark:border-gray-600">
                                 <th class="p-3">Produk</th>
                                 <th class="p-3">Harga</th>
-                                <th class="p-3">Qty</th>
+                                <th class="p-3">Jumlah</th>
                                 <th class="p-3">Subtotal</th>
                                 <th class="p-3"></th>
                             </tr>

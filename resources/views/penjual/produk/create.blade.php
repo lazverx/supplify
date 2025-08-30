@@ -13,7 +13,7 @@
                 </p>
 
                 <!-- Contact Info -->
-               {{-- <div class="mt-6 space-y-3">
+                {{-- <div class="mt-6 space-y-3">
                     <div class="flex items-center gap-3">
                         <div class="bg-[#0A1B2F] p-2 rounded-lg">
                             <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 text-[#FAE3AC]" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -57,30 +57,35 @@
     </div>
 </x-app-layout>
 
-  {{-- SweetAlert2 --}}
-    <script src="{{ asset('js/sweetalert2.all.min.js') }}"></script>
+{{-- SweetAlert2 --}}
+<script src="{{ asset('js/sweetalert2.all.min.js') }}"></script>
 
-    @if(session('success'))
-        <script>
-            Swal.fire({
-                icon: 'success',
-                title: 'Berhasil!',
-                text: "{{ session('success') }}",
-                showConfirmButton: false,
-                timer: 1500
-            }).then(() => {
-                window.location.href = "{{ route('penjual.produk.index')}}";
-            });
-        </script>
-    @endif
+@if(session('success'))
+<script>
+    Swal.fire({
+        icon: 'success',
+        title: 'Berhasil!',
+        text: "{{ session('success') }}",
+        showConfirmButton: false,
+        timer: 1500
+    }).then(() => {
+        window.location.href = "{{ route('penjual.produk.index') }}";
+    });
+</script>
+@endif
 
-    @if(session('error'))
-        <script>
-            Swal.fire({
-                icon: 'error',
-                title: 'Gagal!',
-                text: "{{ session('error') }}",
-                showConfirmButton: true
-            });
-        </script>
-    @endif
+@if($errors->any())
+<script>
+    let errorMessages = `
+            @foreach ($errors->all() as $error)
+                {{ $error }}<br>
+            @endforeach
+        `;
+    Swal.fire({
+        icon: 'error',
+        title: 'Gagal mengajukan produk',
+        html: errorMessages,
+        showConfirmButton: true
+    });
+</script>
+@endif

@@ -82,7 +82,7 @@
                                 </span>
                                 @endif
                             </td>
-                            <td class="px-4 py-3 text-[#2D3250]/80">{{ $item->created_at->format('d M Y - H:i') }}</td>
+                            <td class="px-4 py-3 text-[#2D3250]/80">{{ $item->created_at->format('d M Y') }}</td>
                         </tr>
                         @endforeach
                     </tbody>

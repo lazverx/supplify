@@ -48,6 +48,8 @@ Route::middleware(['auth', 'admin'])->prefix('admin')->name('admin.')->group(fun
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
 
     // Manajemen pengguna
+    Route::get('/users/export-pdf', [UserController::class, 'exportIndexPdf'])->name('users.exportIndexPdf');
+    
     Route::get('/users', [UserController::class, 'index'])->name('users.index');
     Route::get('/users/{id}', [UserController::class, 'show'])->name('users.show');
     Route::delete('/users/{id}', [UserController::class, 'destroy'])->name('users.destroy');
@@ -95,8 +97,11 @@ Route::middleware(['auth', 'penjual'])->prefix('penjual')->name('penjual.')->gro
 
     // Transaksi - Riwayat Penjualan Produk
     Route::get('/transaksi', [TransaksiPenjualController::class, 'index'])->name('transaksi.index');
+    Route::get('/riwayat-transaksi', [TransaksiPenjualController::class, 'index'])->name('transaksi.index');
+    Route::get('/riwayat-transaksi/export/pdf', [TransaksiPenjualController::class, 'exportPdf'])->name('transaksi.export.pdf');
 
-    Route::get('/profile', [PenjualProfileController::class, 'index'])->name('profile.index');   
+
+    Route::get('/profile', [PenjualProfileController::class, 'index'])->name('profile.index');
     Route::get('/profile/edit', [PenjualProfileController::class, 'edit'])->name('profile.edit');
     Route::post('/profile/update', [PenjualProfileController::class, 'update'])->name('profile.update');
 });

@@ -19,11 +19,18 @@ class TransaksiSimulasiController extends Controller
     {
         $produk = Produk::findOrFail($id);
 
-        // ambil user login + profile (eager loading)
         $user = \App\Models\User::with('profile')->find(Auth::id());
 
-        return view('pembeli.transaksi.checkout', compact('produk', 'user'));
+        $biodataIncomplete = false;
+
+        // 🚨 Cek biodata
+        if (!$user->profile || empty($user->profile->alamat) || empty($user->profile->no_hp)) {
+        $biodataIncomplete = true;
     }
+
+        return view('pembeli.transaksi.checkout', compact('produk', 'user', 'biodataIncomplete'));
+    }
+
 
     // Proses pembayaran
     public function bayar(Request $request)

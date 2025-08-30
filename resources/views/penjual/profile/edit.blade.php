@@ -1,80 +1,91 @@
 <x-app-layout>
-    <div class="py-8">
-        <div class="max-w-3xl mx-auto bg-white dark:bg-gray-800 rounded-2xl shadow-lg p-8">
-            <h1 class="text-2xl font-bold text-gray-800 dark:text-gray-100 mb-6 border-b pb-3">
-                 Edit Biodata
-            </h1>
+    <div class="py-10">
+        <div class="max-w-5xl mx-auto bg-white dark:bg-gray-800 rounded-2xl shadow-lg overflow-hidden">
+            <div class="grid grid-cols-1 md:grid-cols-2">
 
-            <form method="POST" action="{{ route('penjual.profile.update') }}" class="space-y-5">
-                @csrf
-
-                <div>
-                    <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Alamat</label>
-                    <input type="text" name="alamat"
-                        value="{{ old('alamat', $profile->alamat ?? '') }}"
-                        class="w-full border-gray-300 dark:border-gray-600 dark:bg-gray-700 rounded-lg shadow-sm focus:ring-2 focus:ring-blue-400 p-3">
+                {{-- Bagian Kiri (Info Panel) --}}
+                <div class="bg-[#FAE3AC] p-8 flex flex-col justify-center">
+                    <h1 class="text-2xl font-bold text-gray-900 mb-4">
+                        Edit Biodata Anda di Suplify
+                    </h1>
+                    <p class="text-sm text-gray-600 leading-relaxed">
+                        Isi formulir di samping untuk memperbarui informasi perusahaan Anda agar data tetap akurat,
+                        memudahkan proses transaksi dan menjaga pengalaman belanja lebih nyaman.
+                    </p>
                 </div>
 
-                <div>
-                    <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">No HP</label>
-                    <input type="text" name="no_hp"
-                        value="{{ old('no_hp', $profile->no_hp ?? '') }}"
-                        class="w-full border-gray-300 dark:border-gray-600 dark:bg-gray-700 rounded-lg shadow-sm focus:ring-2 focus:ring-blue-400 p-3">
-                </div>
+                {{-- Bagian Kanan (Form) --}}
+                <div class="p-8">
+                    <form method="POST" action="{{ route('penjual.profile.update') }}" class="space-y-5">
+                        @csrf
 
-                <div>
-                    <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
-                        Email Kontak (opsional, untuk perusahaan)
-                    </label>
-                    <input type="email" name="email_kontak"
-                        value="{{ old('email_kontak', $profile->email_kontak ?? '') }}"
-                        class="w-full border-gray-300 dark:border-gray-600 dark:bg-gray-700 rounded-lg shadow-sm focus:ring-2 focus:ring-blue-400 p-3">
-                </div>
+                        <input type="text" name="alamat"
+                            placeholder="Alamat"
+                            value="{{ old('alamat', $profile->alamat ?? '') }}"
+                            class="w-full border border-gray-300 rounded-lg p-3 focus:ring-2 focus:ring-blue-500 outline-none">
 
-                <div>
-                    <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
-                        Nama Perusahaan (opsional)
-                    </label>
-                    <input type="text" name="nama_perusahaan"
-                        value="{{ old('nama_perusahaan', $profile->nama_perusahaan ?? '') }}"
-                        class="w-full border-gray-300 dark:border-gray-600 dark:bg-gray-700 rounded-lg shadow-sm focus:ring-2 focus:ring-blue-400 p-3">
-                </div>
+                        <input type="text" name="no_hp"
+                            placeholder="Nomor HP"
+                            value="{{ old('no_hp', $profile->no_hp ?? '') }}"
+                            class="w-full border border-gray-300 rounded-lg p-3 focus:ring-2 focus:ring-blue-500 outline-none">
 
-                <div class="pt-4 flex justify-end">
-                    <button type="submit"
-                        class="bg-blue-600 hover:bg-blue-700 text-white px-6 py-2 rounded-lg shadow-md transition duration-200">
-                         Simpan
-                    </button>
+                        <input type="email" name="email_kontak"
+                            placeholder="Email Kontak"
+                            value="{{ old('email_kontak', $profile->email_kontak ?? '') }}"
+                            class="w-full border border-gray-300 rounded-lg p-3 focus:ring-2 focus:ring-blue-500 outline-none">
+
+                        <input type="text" name="nama_perusahaan"
+                            placeholder="Nama Perusahaan"
+                            value="{{ old('nama_perusahaan', $profile->nama_perusahaan ?? '') }}"
+                            class="w-full border border-gray-300 rounded-lg p-3 focus:ring-2 focus:ring-blue-500 outline-none">
+
+                        <button type="submit"
+                            class="w-full bg-[#1A1F4A] hover:bg-[#0f1435] text-white font-medium py-3 rounded-lg shadow-md transition duration-200">
+                            Simpan
+                        </button>
+                    </form>
                 </div>
-            </form>
+            </div>
         </div>
     </div>
 
-    {{-- SweetAlert2 --}}
-    <script src="{{ asset('js/sweetalert2.all.min.js') }}"></script>
-
-    @if(session('success'))
-        <script>
-            Swal.fire({
-                icon: 'success',
-                title: 'Berhasil!',
-                text: "{{ session('success') }}",
-                showConfirmButton: false,
-                timer: 1500
-            }).then(() => {
-                window.location.href = "{{ route('penjual.profile.index')}}";
-            });
-        </script>
-    @endif
-
-    @if(session('error'))
-        <script>
-            Swal.fire({
-                icon: 'error',
-                title: 'Gagal!',
-                text: "{{ session('error') }}",
-                showConfirmButton: true
-            });
-        </script>
-    @endif
 </x-app-layout>
+
+{{-- SweetAlert2 --}}
+<script src="{{ asset('js/sweetalert2.all.min.js') }}"></script>
+
+@if(session('success'))
+<script>
+    Swal.fire({
+        icon: 'success',
+        title: 'Berhasil!',
+        text: "{{ session('success') }}",
+        showConfirmButton: false,
+        timer: 1500
+    }).then(() => {
+        window.location.href = "{{ route('penjual.profile.index')}}";
+    });
+</script>
+@endif
+
+@if(session('error'))
+<script>
+    Swal.fire({
+        icon: 'error',
+        title: 'Gagal!',
+        text: "{{ session('error') }}",
+        showConfirmButton: true
+    });
+</script>
+@endif
+
+@if($errors->any())
+<script>
+    Swal.fire({
+        icon: 'error',
+        title: 'Gagal!',
+        html: `{!! implode('<br>', $errors->all()) !!}`,
+        confirmButtonText: 'Ok'
+    });
+</script>
+@endif

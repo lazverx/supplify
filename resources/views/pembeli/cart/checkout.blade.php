@@ -105,12 +105,19 @@
 <script>
     Swal.fire({
         icon: 'error',
-        title: 'Gagal!',
+        title: 'Biodata Belum Lengkap',
         text: "{{ session('error') }}",
-        showConfirmButton: true
+        showCancelButton: true,
+        confirmButtonText: 'Lengkapi Biodata',
+        cancelButtonText: 'Nanti Saja'
+    }).then((result) => {
+        if (result.isConfirmed) {
+            window.location.href = "{{ route('profile.index') }}"; 
+        }
     });
 </script>
 @endif
+
 
 <script>
 document.addEventListener('DOMContentLoaded', () => {

@@ -31,17 +31,17 @@
                 <div class="space-y-4">
                     <label class="flex items-center border p-4 rounded-lg cursor-pointer hover:border-blue-500">
                         <input type="radio" name="metode_pembayaran" value="BCA Virtual Account" class="mr-3" required>
-                        <img src="{{ asset('image/payment/bca.png') }}" alt="BCA" class="h-6 mr-2">
+                        <img src="{{ asset('image/bca.png') }}" alt="BCA" class="h-6 mr-2">
                         <span>BCA Virtual Account</span>
                     </label>
                     <label class="flex items-center border p-4 rounded-lg cursor-pointer hover:border-blue-500">
                         <input type="radio" name="metode_pembayaran" value="Mandiri Virtual Account" class="mr-3">
-                        <img src="{{ asset('image/payment/mandiri.png') }}" alt="Mandiri" class="h-6 mr-2">
+                        <img src="{{ asset('image/mandiri.png') }}" alt="Mandiri" class="h-6 mr-2">
                         <span>Mandiri Virtual Account</span>
                     </label>
                     <label class="flex items-center border p-4 rounded-lg cursor-pointer hover:border-blue-500">
                         <input type="radio" name="metode_pembayaran" value="QRIS" class="mr-3">
-                        <img src="{{ asset('image/payment/qris.png') }}" alt="QRIS" class="h-6 mr-2">
+                        <img src="{{ asset('image/qris.png') }}" alt="QRIS" class="h-6 mr-2">
                         <span>QRIS</span>
                     </label>
                 </div>
@@ -86,9 +86,28 @@
                     </p>
                 </div>
 
-                <button type="submit" class="w-full mt-6 bg-blue-600 hover:bg-blue-700 text-white py-3 rounded-lg font-semibold transition">
+                <button type="submit"
+                    class="w-full mt-6 py-3 rounded-lg font-semibold transition
+                    @if($biodataIncomplete)
+                        bg-gray-400 cursor-not-allowed
+                    @else
+                        bg-blue-600 hover:bg-blue-700 text-white
+                    @endif"
+                    @if ($biodataIncomplete) disabled @endif>
                     Bayar Sekarang
                 </button>
+
+
+                @if ($biodataIncomplete)
+                <div class="mt-4 text-sm text-red-600">
+                    ⚠️ Lengkapi biodata Anda dulu di
+                    <a href="{{ route('pembeli.profile.edit') }}" class="text-blue-600 underline">halaman profil</a>.
+                </div>
+                @endif
+
+
+
+
             </div>
         </form>
     </div>
@@ -123,45 +142,59 @@
 </script>
 @endif
 
+@if ($biodataIncomplete)
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        Swal.fire({
+            icon: 'warning',
+            title: 'Lengkapi Biodata',
+            text: 'Alamat dan nomor HP harus dilengkapi sebelum melanjutkan pembayaran.',
+            confirmButtonText: 'OK'
+        });
+    });
+</script>
+@endif
+
+
 {{-- Script interaktif untuk metode pembayaran & total harga --}}
 <script>
-document.addEventListener('DOMContentLoaded', () => {
-  const root = document.getElementById('pembeli-checkout');
+    document.addEventListener('DOMContentLoaded', () => {
+        const root = document.getElementById('pembeli-checkout');
 
-  // ambil data dari atribut HTML (aman untuk editor)
-  const hargaSatuan = Number(root?.dataset.harga ?? 0);
-  const stok = Number(root?.dataset.stok ?? 0);
+        // ambil data dari atribut HTML (aman untuk editor)
+        const hargaSatuan = Number(root?.dataset.harga ?? 0);
+        const stok = Number(root?.dataset.stok ?? 0);
 
-  const radios = document.querySelectorAll('input[name="metode_pembayaran"]');
-  const ringkasanText = document.getElementById('metode-pembayaran-text');
-  const jumlahInput = document.getElementById('jumlah');
-  const totalHargaText = document.getElementById('total-harga');
+        const radios = document.querySelectorAll('input[name="metode_pembayaran"]');
+        const ringkasanText = document.getElementById('metode-pembayaran-text');
+        const jumlahInput = document.getElementById('jumlah');
+        const totalHargaText = document.getElementById('total-harga');
 
-  // safety checks
-  if (!jumlahInput || !totalHargaText || !ringkasanText) return;
+        // safety checks
+        if (!jumlahInput || !totalHargaText || !ringkasanText) return;
 
-  // update metode pembayaran
-  radios.forEach(radio => {
-    radio.addEventListener('change', function() {
-      ringkasanText.textContent = this.value;
+        // update metode pembayaran
+        radios.forEach(radio => {
+            radio.addEventListener('change', function() {
+                ringkasanText.textContent = this.value;
+            });
+        });
+
+        // fungsi update total
+        const updateTotal = () => {
+            let qty = parseInt(jumlahInput.value, 10) || 1;
+            if (qty < 1) qty = 1;
+            if (qty > stok) {
+                qty = stok;
+                jumlahInput.value = stok; // clamp ke stok maksimum
+            }
+            const total = hargaSatuan * qty;
+            totalHargaText.textContent = 'Rp ' + total.toLocaleString('id-ID');
+        };
+
+        jumlahInput.addEventListener('input', updateTotal);
+
+        // trigger awal supaya total muncul sesuai default
+        updateTotal();
     });
-  });
-
-  // fungsi update total
-  const updateTotal = () => {
-    let qty = parseInt(jumlahInput.value, 10) || 1;
-    if (qty < 1) qty = 1;
-    if (qty > stok) {
-      qty = stok;
-      jumlahInput.value = stok; // clamp ke stok maksimum
-    }
-    const total = hargaSatuan * qty;
-    totalHargaText.textContent = 'Rp ' + total.toLocaleString('id-ID');
-  };
-
-  jumlahInput.addEventListener('input', updateTotal);
-
-  // trigger awal supaya total muncul sesuai default
-  updateTotal();
-});
 </script>

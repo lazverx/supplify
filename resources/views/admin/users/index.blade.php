@@ -5,16 +5,56 @@
         </h2>
     </x-slot>
 
+
     <div class="max-w-7xl mx-auto py-8 px-4 sm:px-6 lg:px-8 animate-fadeIn">
-        <div class="bg-[#FAE3AC] shadow-lg rounded-xl p-6">
-            @if(session('success'))
-            <div class="mb-4 text-[#2D3250] dark:text-[#FAE3AC] bg-[#FAE3AC]/40 dark:bg-[#2D3250]/50 p-3 rounded-lg shadow-sm border border-[#2D3250]/20">
-                ✅ {{ session('success') }}
-            </div>
-            @endif
-            <h3 class="text-lg font-semibold text-[#2D3250] mb-6 border-b border-[#2D3250]/30 pb-2">
-                Daftar Pengguna
-            </h3>
+
+        {{-- 🔍 Search & Filter --}}
+        <div class="mb-8 bg-white dark:bg-gray-800 rounded-xl shadow-md p-6">
+            <form method="GET" action="{{ route('admin.users.index') }}"
+                class="grid grid-cols-1 md:grid-cols-4 gap-4">
+
+                {{-- Search --}}
+                <input type="text" name="search" value="{{ request('search') }}"
+                    placeholder="Cari nama atau email..."
+                    class="col-span-2 px-4 py-2 rounded-lg border border-gray-300 dark:border-gray-600 
+                           text-gray-800 dark:text-white bg-gray-50 dark:bg-gray-700 
+                           focus:ring-2 focus:ring-yellow-400 focus:border-yellow-400 transition">
+
+                {{-- Filter Role --}}
+                <select name="role"
+                    class="px-4 py-2 rounded-lg border border-gray-300 dark:border-gray-600 
+                           text-gray-800 dark:text-white bg-gray-50 dark:bg-gray-700 
+                           focus:ring-2 focus:ring-yellow-400 focus:border-yellow-400 transition">
+                    <option value="">Semua Role</option>
+                    <option value="penjual" {{ request('role') == 'penjual' ? 'selected' : '' }}>Penjual</option>
+                    <option value="pembeli" {{ request('role') == 'pembeli' ? 'selected' : '' }}>Pembeli</option>
+                </select>
+
+                <button type="submit"
+                    class="bg-yellow-400 hover:bg-yellow-500 text-black font-semibold py-2 rounded-lg shadow-md transition">
+                    Terapkan Filter
+                </button>
+            </form>
+
+
+        </div>
+
+        <div class="max-w-7xl mx-auto py-8 px-4 sm:px-6 lg:px-8 animate-fadeIn">
+            <div class="bg-[#FAE3AC] shadow-lg rounded-xl p-6">
+                @if(session('success'))
+                <div class="mb-4 text-[#2D3250] dark:text-[#FAE3AC] bg-[#FAE3AC]/40 dark:bg-[#2D3250]/50 p-3 rounded-lg shadow-sm border border-[#2D3250]/20">
+                    ✅ {{ session('success') }}
+                </div>
+                @endif
+
+                <div class="flex justify-between items-center mb-4">
+                    <h2 class="text-xl font-semibold">Daftar Pengguna</h2>
+                    <a href="{{ route('admin.users.exportIndexPdf', request()->only('role', 'search')) }}"
+                        class="px-4 py-2 bg-red-600 text-white text-sm font-medium rounded-lg shadow hover:bg-red-700 transition-colors duration-200">
+                        📄 Export PDF
+                    </a>
+                </div>
+
                 <div class="p-6 text-[#2D3250] dark:text-[#FAE3AC]">
                     <div class="overflow-x-auto rounded-lg border border-[#2D3250]/20 dark:border-[#FAE3AC]/20">
                         <table class="min-w-full text-sm text-left border-collapse">
@@ -62,6 +102,11 @@
                             </tbody>
                         </table>
                     </div>
+                </div>
+
+                {{-- 📄 Pagination --}}
+                <div class="mt-4">
+                    {{ $users->links() }}
                 </div>
             </div>
         </div>

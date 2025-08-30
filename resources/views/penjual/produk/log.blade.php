@@ -83,21 +83,26 @@
             </div>
         </div>
 
-        <style>
-            @keyframes fadeIn {
-                from {
-                    opacity: 0;
-                    transform: translateY(10px);
-                }
-
-                to {
-                    opacity: 1;
-                    transform: translateY(0);
-                }
+        <!-- 🔽 Pagination -->
+        <div class="mt-8">
+            {{ $produks->links('pagination::tailwind') }}
+        </div>
+    </div>
+    <style>
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(10px);
             }
 
-            .animate-fadeIn {
-                animation: fadeIn 0.4s ease-in-out;
+            to {
+                opacity: 1;
+                transform: translateY(0);
             }
-        </style>
+        }
+
+        .animate-fadeIn {
+            animation: fadeIn 0.4s ease-in-out;
+        }
+    </style>
 </x-app-layout>

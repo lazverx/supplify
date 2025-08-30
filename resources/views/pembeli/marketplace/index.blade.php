@@ -36,7 +36,7 @@
                         </select>
 
                         <button type="submit"
-                            class="md:col-span-4 bg-yellow-400 hover:bg-yellow-500 text-black font-semibold py-2 rounded-lg shadow-md transition">
+                            class="md:col-span-4 bg-[#FAE3AC] hover:bg-[#EFC66D] text-black font-semibold py-2 rounded-lg shadow-md transition">
                             Terapkan Filter
                         </button>
                     </form>
@@ -55,7 +55,9 @@
                         <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
                             @foreach ($produk as $item)
                             <div
-                                class="group relative bg-white dark:bg-gray-700 border border-gray-200 dark:border-gray-600 rounded-xl shadow hover:shadow-xl transition overflow-hidden flex flex-col">
+                                class="group relative bg-white dark:bg-gray-700 border border-gray-200 dark:border-gray-600 
+                                rounded-xl shadow hover:shadow-xl transition overflow-hidden flex flex-col 
+                                {{ $item->stok == 0 ? 'opacity-70 pointer-events-none' : '' }}">
 
                                 {{-- Gambar produk --}}
                                 <div class="relative">
@@ -64,22 +66,32 @@
                                         class="w-full h-48 object-cover transform group-hover:scale-105 transition duration-300">
 
                                     {{-- Tombol keranjang --}}
+                                    @if($item->stok > 0)
                                     <form action="{{ route('pembeli.cart.store') }}" method="POST"
                                         class="absolute top-2 right-2">
                                         @csrf
                                         <input type="hidden" name="produk_id" value="{{ $item->id }}">
                                         <input type="hidden" name="qty" value="1">
-                                        <button type="submit"
-                                            class="bg-green-500 hover:bg-green-600 text-white p-2 rounded-full shadow-lg opacity-0 group-hover:opacity-100 transition duration-300">
-                                            🛒
+                                        <button type="submit">
+                                            <img src="{{ asset('image/icons/cart.svg') }}"
+                                                class="w-6 h-6 bg-green-500 hover:bg-green-600 text-white p-1.5 rounded-full shadow-lg opacity-0 group-hover:opacity-100 transition duration-300">
                                         </button>
                                     </form>
+                                    @endif
 
-                                    {{-- Harga di pojok kanan bawah gambar --}}
+                                    {{-- Harga di pojok kanan bawah --}}
                                     <span
                                         class="absolute bottom-2 right-2 bg-black bg-opacity-70 text-white text-sm font-semibold px-3 py-1 rounded-lg">
                                         Rp {{ number_format($item->harga, 0, ',', '.') }} / Kg
                                     </span>
+
+                                    {{-- Label Habis --}}
+                                    @if($item->stok == 0)
+                                    <span
+                                        class="absolute inset-0 flex items-center justify-center bg-black bg-opacity-60 text-white font-bold text-lg">
+                                        Habis
+                                    </span>
+                                    @endif
                                 </div>
 
                                 {{-- Detail produk --}}
@@ -92,18 +104,26 @@
                                         Stok: {{ $item->stok }} Kg
                                     </p>
 
+                                    @if($item->stok > 0)
                                     <a href="{{ route('pembeli.transaksi.checkout', $item->id) }}"
                                         class="mt-auto block w-full text-center bg-[#FAE3AC] hover:bg-yellow-300 text-[#2D3250] font-semibold py-2 rounded-lg">
                                         Beli
                                     </a>
+                                    @else
+                                    <button disabled
+                                        class="mt-auto block w-full text-center bg-gray-400 text-white font-semibold py-2 rounded-lg cursor-not-allowed">
+                                        Tidak Tersedia
+                                    </button>
+                                    @endif
                                 </div>
                             </div>
+
                             @endforeach
                         </div>
 
                         {{-- 📄 Pagination --}}
                         <div class="mt-6">
-                            {{ $produk->links() }}
+                            {{ $produk->links('pagination::tailwind') }}
                         </div>
                         @endif
                     </div>

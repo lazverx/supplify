@@ -99,3 +99,31 @@
         }
     </style>
 </x-app-layout>
+
+{{-- SweetAlert2 --}}
+<script src="{{ asset('js/sweetalert2.all.min.js') }}"></script>
+
+@if(session('success'))
+<script>
+    Swal.fire({
+        icon: 'success',
+        title: 'Berhasil!',
+        text: "{{ session('success') }}",
+        showConfirmButton: false,
+        timer: 1800
+    }).then(() => {
+        window.location.href = "{{ route('penjual.produk.index') }}"
+    });
+</script>
+@endif
+
+@if($errors->any())
+<script>
+    Swal.fire({
+        icon: 'error',
+        title: 'Gagal!',
+        html: `{!! implode('<br>', $errors->all()) !!}`,
+        confirmButtonText: 'Ok'
+    });
+</script>
+@endif

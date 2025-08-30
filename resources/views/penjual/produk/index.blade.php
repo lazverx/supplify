@@ -84,6 +84,11 @@
                 </table>
             </div>
             @endif
+
+            <!-- 🔽 Pagination -->
+            <div class="mt-8">
+                {{ $produks->links('pagination::tailwind') }}
+            </div>
         </div>
     </div>
 

@@ -16,7 +16,7 @@ class TransaksiController extends Controller
         $transaksis = Transaksi::with(['transaksis.produk'])
         ->where('user_id', Auth::id())
         ->latest()
-        ->get();
+        ->paginate(10);
 
 
         return view('pembeli.transaksi.index', compact('transaksis'));

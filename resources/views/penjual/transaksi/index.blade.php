@@ -1,14 +1,21 @@
 <x-app-layout>
     <x-slot name="header">
         <h2 class="font-semibold text-xl text-white leading-tight">
-            Riwayat Transaksi Produk Saya
+            Riwayat Penjualan Produk
         </h2>
     </x-slot>
 
     <div class="py-6">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
+
             <!-- Card Container -->
             <div class="bg-[#FAE3AC] p-6 rounded-xl shadow-lg">
+                <div class="flex justify-end mb-4">
+                    <a href="{{ route('penjual.transaksi.export.pdf') }}"
+                        class="px-4 py-2 bg-red-600 text-white rounded-lg shadow hover:bg-red-700 transition">
+                        Export PDF
+                    </a>
+                </div>
                 <!-- Tabel -->
                 <div class="overflow-x-auto bg-white rounded-xl shadow-inner">
                     <table class="w-full text-left border-collapse">
@@ -51,7 +58,7 @@
                 {{ $transaksi->status == 'Selesai' ? 'bg-green-100 text-green-700' : 
                    ($transaksi->status == 'Pending' ? 'bg-yellow-100 text-yellow-700' : 
                    'bg-green-100 text-green-700') }}">
-                                        {{ $transaksi->status }}
+                                        {{ ucwords($transaksi->status) }}
                                     </span>
                                 </td>
                             </tr>
@@ -64,6 +71,11 @@
                             @endforelse
                         </tbody>
                     </table>
+
+                    <div class="mt-4">
+                        {{ $transaksis->links() }}
+                    </div>
+
                 </div>
             </div>
         </div>

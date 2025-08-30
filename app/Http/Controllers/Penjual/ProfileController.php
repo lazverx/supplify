@@ -38,19 +38,28 @@ class ProfileController extends Controller
     }
 
     public function update(Request $request)
-    {
-        $request->validate([
-            'alamat' => 'required|string|max:255',
-            'no_hp' => 'required|string|max:20',
-            'email_kontak' => 'nullable|email|max:255',
-            'nama_perusahaan' => 'nullable|string|max:255',
-        ]);
+{
+    $messages = [
+        'alamat.required' => 'Alamat tidak boleh kosong, wajib diisi untuk data perusahaan!',
+        'no_hp.required' => 'Nomor HP harus diisi agar pelanggan bisa menghubungi Anda!',
+        'email_kontak.required' => 'Email kontak wajib diisi!',
+        'nama_perusahaan.required' => 'Nama perusahaan tidak boleh kosong!',
+        'email_kontak.email' => 'Format email kontak tidak valid!',
+    ];
 
-        Auth::user()->profile->updateOrCreate(
-            ['user_id' => Auth::id()],
-            $request->only('alamat', 'no_hp', 'email_kontak', 'nama_perusahaan')
-        );
+    $request->validate([
+        'alamat' => 'required|string|max:255',
+        'no_hp' => 'required|string|max:20',
+        'email_kontak' => 'required|email|max:255',
+        'nama_perusahaan' => 'required|string|max:255',
+    ], $messages);
 
-        return redirect()->back()->with('success', 'Biodata berhasil diperbarui.');
-    }
+    Auth::user()->profile()->updateOrCreate(
+        ['user_id' => Auth::id()],
+        $request->only('alamat', 'no_hp', 'email_kontak', 'nama_perusahaan')
+    );
+
+    return redirect()->back()->with('success', 'Biodata berhasil diperbarui.');
+}
+
 }

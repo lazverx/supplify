@@ -41,16 +41,25 @@ class ProfileController extends Controller
     {
         $request->validate([
             'alamat' => 'required|string|max:255',
-            'no_hp' => 'required|string|max:20',
-            'email_kontak' => 'nullable|email|max:255',
+            'no_hp'  => 'required|string|max:20',
+            'email_kontak' => 'nullable|email',
             'nama_perusahaan' => 'nullable|string|max:255',
+        ], [
+            'alamat.required' => 'Alamat tidak boleh kosong.',
+            'no_hp.required'  => 'Nomor HP wajib diisi.',
+            'no_hp.max'       => 'Nomor HP terlalu panjang, maksimal 20 karakter.',
+            'email_kontak.email' => 'Email kontak harus berupa email yang valid.',
         ]);
 
-        Auth::user()->profile->updateOrCreate(
-            ['user_id' => Auth::id()],
-            $request->only('alamat', 'no_hp', 'email_kontak', 'nama_perusahaan')
-        );
+        // Simpan data profile
+        $user = auth()->user();
+        $user->profile()->updateOrCreate([], [
+            'alamat'          => $request->alamat,
+            'no_hp'           => $request->no_hp,
+            'email_kontak'    => $request->email_kontak,
+            'nama_perusahaan' => $request->nama_perusahaan,
+        ]);
 
-        return redirect()->back()->with('success', 'Biodata berhasil diperbarui.');
+        return redirect()->route('pembeli.profile.index')->with('success', 'Biodata berhasil diperbarui.');
     }
 }

@@ -11,9 +11,9 @@
             <!-- Bagian Kiri (Gambar Produk) -->
             <div class="md:w-1/2 flex justify-center items-center">
                 <div class="w-full aspect-[4/3] overflow-hidden rounded-xl bg-gradient-to-tr from-gray-100 to-gray-200 dark:from-gray-700 dark:to-gray-600 shadow-inner">
-                    <img src="{{ asset('storage/' . $produk->foto) }}" 
-                         alt="{{ $produk->nama_produk }}"
-                         class="w-full h-full object-contain hover:scale-110 transition duration-500 ease-in-out" />
+                    <img src="{{ asset('storage/' . $produk->foto) }}"
+                        alt="{{ $produk->nama_produk }}"
+                        class="w-full h-full object-contain hover:scale-110 transition duration-500 ease-in-out" />
                 </div>
             </div>
 
@@ -24,10 +24,24 @@
                         {{ $produk->nama_produk }}
                     </h3>
 
-                    <div class="space-y-4 text-gray-700 dark:text-gray-300 leading-relaxed">
-                        <p><span class="font-semibold text-gray-900 dark:text-gray-200">Deskripsi:</span> {{ $produk->deskripsi }}</p>
-                        <p><span class="font-semibold text-gray-900 dark:text-gray-200">Stok:</span> {{ $produk->stok }}</p>
-                        <p><span class="font-semibold text-gray-900 dark:text-gray-200">Lokasi:</span> {{ $produk->lokasi }}</p>
+                    <!-- Deskripsi Produk -->
+                    <div class="bg-gray-50 dark:bg-gray-700 p-6 rounded-xl shadow-md">
+                        <h4 class="text-xl font-bold mb-4 text-gray-800 dark:text-gray-100">Deskripsi Produk</h4>
+                        <p class="text-gray-700 dark:text-gray-300 leading-relaxed">
+                            {{ $produk->deskripsi ?? 'Tidak ada deskripsi.' }}
+                        </p>
+                    </div>
+
+                    <!-- Informasi Penjual -->
+                    <div class="bg-gray-50 dark:bg-gray-700 p-6 rounded-xl shadow-md mt-8">
+                        <h4 class="text-xl font-bold mb-4 text-gray-800 dark:text-gray-100">Informasi Penjual</h4>
+                        <ul class="space-y-2 text-gray-700 dark:text-gray-300">
+                            <li><span class="font-semibold">Nama:</span> {{ $produk->penjual->name ?? '-' }}</li>
+                            <li><span class="font-semibold">Email:</span> {{ $produk->penjual->email ?? '-' }}</li>
+                            <li><span class="font-semibold">No HP:</span> {{ $produk->penjual->profile->no_hp ?? '-' }}</li>
+                            <li><span class="font-semibold">Alamat:</span> {{ $produk->penjual->profile->alamat ?? '-' }}</li>
+                            <li><span class="font-semibold">Perusahaan:</span> {{ $produk->penjual->profile->nama_perusahaan ?? '-' }}</li>
+                        </ul>
                     </div>
                 </div>
 
@@ -38,7 +52,7 @@
                         @csrf
                         <button type="submit"
                             class="bg-gradient-to-r from-green-500 to-green-600 hover:from-green-600 hover:to-green-700 text-white px-6 py-2.5 rounded-xl shadow-md hover:shadow-lg transition transform hover:-translate-y-0.5">
-                             Setujui
+                            Setujui
                         </button>
                     </form>
 
@@ -47,7 +61,7 @@
                         @csrf
                         <button type="button" id="btn-reject"
                             class="bg-gradient-to-r from-red-500 to-red-600 hover:from-red-600 hover:to-red-700 text-white px-6 py-2.5 rounded-xl shadow-md hover:shadow-lg transition transform hover:-translate-y-0.5">
-                             Tolak
+                            Tolak
                         </button>
                     </form>
                 </div>
@@ -55,6 +69,7 @@
         </div>
     </div>
 </x-app-layout>
+
 
 {{-- SweetAlert2 --}}
 <script src="{{ asset('js/sweetalert2.all.min.js') }}"></script>

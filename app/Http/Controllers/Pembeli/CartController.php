@@ -89,8 +89,10 @@ class CartController extends Controller
             // Ambil data profil user
             $profile = Auth::user()->profile; // Pastikan relasi 'profile' ada di model User
 
-            if (!$profile || !$profile->alamat) {
-                abort(400, 'Alamat pengiriman belum diisi di profil Anda.');
+            if (!$profile || !$profile->alamat || !$profile->no_hp) {
+                return redirect()
+                    ->route('pembeli.cart.checkout')
+                    ->with('error', 'Lengkapi biodata Anda terlebih dahulu sebelum melakukan checkout.');
             }
 
             // Hitung total & total qty
