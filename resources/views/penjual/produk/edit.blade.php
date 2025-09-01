@@ -73,7 +73,7 @@
                     <div class="pt-4">
                         <button type="submit"
                             class="w-full bg-[#2D3250] text-white font-medium px-5 py-3 rounded-md shadow hover:bg-[#1f223a] transition">
-                            → Kirim produk
+                            → Simpan produk
                         </button>
                     </div>
                 </form>

@@ -8,7 +8,7 @@
     <div class="max-w-7xl mx-auto py-8 px-4 sm:px-6 lg:px-8 animate-fadeIn">
         <div class="bg-[#FAE3AC] shadow-lg rounded-lg p-6">
 
-            {{-- Search & Tambah Produk --}}
+            {{-- Search Produk --}}
             <div class="flex flex-col md:flex-row justify-between items-center gap-4 mb-6">
                 <form action="{{ route('penjual.produk.index') }}" method="GET" class="flex items-center gap-2">
                     <input type="text" name="search" placeholder="Cari produk..."

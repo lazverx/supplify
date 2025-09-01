@@ -125,6 +125,40 @@
 
 </x-guest-layout>
 
+
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+@if(session('success'))
+<script>
+    Swal.fire({
+        icon: 'success',
+        title: 'Berhasil!',
+        text: "{{ session('success') }}",
+        confirmButtonColor: '#3085d6',
+        confirmButtonText: 'OK'
+    });
+</script>
+@endif
+
+@if ($errors->any())
+<script>
+    Swal.fire({
+        icon: 'error',
+        title: 'Oops...',
+        html: `
+                <ul style="text-align: left; margin:0; padding-left:18px;">
+                    @foreach ($errors->all() as $error)
+                        <li>{{ $error }}</li>
+                    @endforeach
+                </ul>
+            `,
+        confirmButtonColor: '#d33',
+        confirmButtonText: 'Coba Lagi'
+    });
+</script>
+@endif
+
+
 <script>
     function togglePassword(inputId, button) {
         const input = document.getElementById(inputId);
