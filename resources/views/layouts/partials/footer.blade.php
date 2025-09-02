@@ -41,7 +41,7 @@
 
                         <span>
                             Instagram:
-                            <a href="https://instagram.com/supplify"
+                            <a href="https://www.instagram.com/supplify_project?igsh=MTR6a3VqZTgzZ21zYg=="
                                 target="_blank"
                                 class="hover:underline text-[#223A5E]">
                                 @supplify

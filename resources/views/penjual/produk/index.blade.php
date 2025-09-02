@@ -20,10 +20,13 @@
                     </button>
                 </form>
 
+            
+
                 <a href="{{ route('penjual.produk.create') }}"
                     class="bg-[#2D3250] hover:bg-[#1f233a] text-[#FAE3AC] px-5 py-2 rounded-lg font-semibold transition">
                     + Tambah Produk
                 </a>
+
             </div>
 
             {{-- Tabel Produk --}}
@@ -109,13 +112,42 @@
             animation: fadeIn 0.4s ease-in-out;
         }
     </style>
+
 </x-app-layout>
+
+<script src="{{ asset('js/sweetalert2.all.min.js') }}"></script>
+
+@if(session('success'))
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        Swal.fire({
+            icon: 'success',
+            title: 'Berhasil!',
+            text: "{{ session('success') }}",
+            showConfirmButton: false,
+            timer: 2000
+        });
+    });
+</script>
+@endif
+
+@if(session('error'))
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        Swal.fire({
+            icon: 'error',
+            title: 'Oops!',
+            text: "{{ session('error') }}",
+            confirmButtonColor: '#d33',
+        });
+    });
+</script>
+@endif
 
 
 
 
 {{-- SweetAlert2 --}}
-<script src="{{ asset('js/sweetalert2.all.min.js') }}"></script>
 <script>
     // Konfirmasi sebelum hapus
     document.querySelectorAll('.delete-btn').forEach(button => {
@@ -139,17 +171,4 @@
             });
         });
     });
-
-    // Notifikasi sukses setelah hapus
 </script>
-@if(session('success'))
-<script>
-    Swal.fire({
-        icon: 'success',
-        title: 'Berhasil!',
-        text: "{{ session('success') }}",
-        showConfirmButton: false,
-        timer: 2000
-    });
-</script>
-@endif

@@ -11,13 +11,9 @@ class ProdukController extends Controller
 {
     public function index(Request $request)
     {
-        // Ambil keyword dari input form (misalnya name="search")
         $search = $request->input('search');
-
-        // Query produk milik penjual yang login
         $query = Produk::where('user_id', Auth::id());
 
-        // Kalau ada keyword, filter berdasarkan nama_produk atau deskripsi
         if ($search) {
             $query->where(function ($q) use ($search) {
                 $q->where('nama_produk', 'like', '%' . $search . '%')
@@ -25,21 +21,36 @@ class ProdukController extends Controller
             });
         }
 
-        // Ambil hasil query
         $produks = $query->orderByDesc('created_at')->paginate(10);
 
-        // Kirim ke view
         return view('penjual.produk.index', compact('produks', 'search'));
     }
 
 
     public function create()
     {
+        $user = Auth::user();
+
+        if (!$user->profile || !$user->profile->alamat || !$user->profile->no_hp || !$user->profile->nama_perusahaan) {
+            return redirect()->route('penjual.produk.index')
+                ->with('error', 'Silakan lengkapi biodata terlebih dahulu sebelum menambahkan produk.');
+        }
+
         return view('penjual.produk.create');
     }
 
+
     public function store(Request $request)
     {
+        $user = Auth::user();
+
+        // Cegah langsung akses store tanpa biodata
+        if (!$user->profile || !$user->profile->alamat || !$user->profile->no_hp || !$user->profile->nama_perusahaan) {
+            return redirect()->route('penjual.produk.index')
+                ->with('error', 'Anda harus melengkapi biodata terlebih dahulu sebelum bisa menambahkan produk.');
+        }
+
+        // Validasi + simpan produk seperti biasa
         $messages = [
             'nama_produk.required' => 'Nama produk wajib diisi.',
             'deskripsi.required'   => 'Deskripsi produk wajib diisi.',
@@ -64,7 +75,7 @@ class ProdukController extends Controller
         $path = $request->file('foto')->store('produks', 'public');
 
         Produk::create([
-            'user_id'     => auth()->id(),
+            'user_id'     => $user->id,
             'nama_produk' => $request->nama_produk,
             'deskripsi'   => $request->deskripsi,
             'harga'       => $request->harga,
@@ -76,7 +87,6 @@ class ProdukController extends Controller
 
         return redirect()->back()->with('success', 'Produk berhasil diajukan!');
     }
-
 
     public function edit(Produk $produk)
     {
@@ -140,7 +150,7 @@ class ProdukController extends Controller
             });
         }
 
-        $produks = Produk::where('user_id', Auth::id())->orderByDesc('created_at')->get();
+        $produks = $query->orderByDesc('created_at')->paginate(10);
         return view('penjual.produk.log', compact('produks'));
     }
 

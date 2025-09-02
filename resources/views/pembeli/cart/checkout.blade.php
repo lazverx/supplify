@@ -26,17 +26,17 @@
                 <div class="space-y-4">
                     <label class="flex items-center border p-4 rounded-lg cursor-pointer hover:border-blue-500">
                         <input type="radio" name="metode_pembayaran" value="BCA Virtual Account" class="mr-3" required>
-                        <img src="{{ asset('image/payment/bca.png') }}" alt="BCA" class="h-6 mr-2">
+                        <img src="{{ asset('image/bca.png') }}" alt="BCA" class="h-6 mr-2">
                         <span>BCA Virtual Account</span>
                     </label>
                     <label class="flex items-center border p-4 rounded-lg cursor-pointer hover:border-blue-500">
                         <input type="radio" name="metode_pembayaran" value="Mandiri Virtual Account" class="mr-3">
-                        <img src="{{ asset('image/payment/mandiri.png') }}" alt="Mandiri" class="h-6 mr-2">
+                        <img src="{{ asset('image/mandiri.png') }}" alt="Mandiri" class="h-6 mr-2">
                         <span>Mandiri Virtual Account</span>
                     </label>
                     <label class="flex items-center border p-4 rounded-lg cursor-pointer hover:border-blue-500">
                         <input type="radio" name="metode_pembayaran" value="QRIS" class="mr-3">
-                        <img src="{{ asset('image/payment/qris.png') }}" alt="QRIS" class="h-6 mr-2">
+                        <img src="{{ asset('image/qris.png') }}" alt="QRIS" class="h-6 mr-2">
                         <span>QRIS</span>
                     </label>
                 </div>

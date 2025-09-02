@@ -32,7 +32,7 @@
                             :value="old('name')"
                             required
                             autofocus
-                            placeholder="Name" />
+                            placeholder="Nama" />
                         <x-input-error :messages="$errors->get('name')" class="mt-2 text-red-400" />
                     </div>
 
@@ -74,7 +74,7 @@
                             type="password"
                             name="password_confirmation"
                             required
-                            placeholder="Confirm Password" />
+                            placeholder="Konfirmasi Password" />
                         <button type="button"
                             onclick="togglePassword('password_confirmation', this)"
                             class="absolute top-1/2 -translate-y-1/2 right-4 flex items-center text-gray-400 hover:text-yellow-400">

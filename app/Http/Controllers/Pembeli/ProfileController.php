@@ -60,6 +60,6 @@ class ProfileController extends Controller
             'nama_perusahaan' => $request->nama_perusahaan,
         ]);
 
-        return redirect()->route('pembeli.profile.index')->with('success', 'Biodata berhasil diperbarui.');
+        return redirect()->back()->with('success', 'Biodata berhasil diperbarui.');
     }
 }
