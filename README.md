@@ -74,10 +74,10 @@ php artisan serve
 ```
 ---
 
-👨‍💻 Tim Developer – Kelompok 1
-Aji Pamungkas       - Project Manager & Backend
-Dinara Maulida      - Designer
-Faiz Akhrian Putra  - System Analyst
-Kerina Indri Febriany - Front End
-M. Budiono          - QA Tester
-Siti Nur Syafa      - Designer
+## 👨‍💻 Tim Developer – Kelompok 1
+- Aji Pamungkas       - Project Manager & Backend
+- Dinara Maulida      - Designer
+- Faiz Akhrian Putra  - System Analyst
+- Kerina Indri Febriany - Front End
+- M. Budiono          - QA Tester
+- Siti Nur Syafa      - Designer
