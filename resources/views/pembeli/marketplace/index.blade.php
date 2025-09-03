@@ -133,40 +133,45 @@
     </div>
 
     {{-- Footer --}}
-    <footer class="bg-[#FBE3A0] text-black fade-up">
+    <footer class="bg-[#FAE3AC] text-black"
+        data-aos="fade-up" data-aos-duration="1000">
         <div class="max-w-7xl mx-auto px-6 py-8 grid grid-cols-1 md:grid-cols-3 gap-8">
-            <div>
-                <img src="{{ asset('image/logo-supplify.png') }}" alt="Logo Supplify" class="w-12 mb-4">
+            <div data-aos="fade-up" data-aos-delay="100" data-aos-duration="800">
+                <img src="{{ asset('image/logo-supplify.png') }}" class="h-[50px] w-auto">
                 <p class="text-sm mb-4">Supplify mempermudah Anda terhubung dengan pemasok terpercaya.</p>
             </div>
-
-            <div>
+            <div data-aos="fade-up" data-aos-delay="200" data-aos-duration="800">
                 <h3 class="font-bold mb-3">Customer Service</h3>
                 <ul class="space-y-2 text-sm">
-                    <li>📧 Email:
-                        <a href="mailto:ajipamungkasoffice7308@gmail.com"
-                            class="hover:underline text-[#223A5E]">ajipamungkasoffice7308@gmail.com</a>
+                    <li class="flex items-center gap-2">
+                        <img src="{{ asset('image/icons/gmail.svg') }}" class="w-5 h-5">
+                        <a href="mailto:ajipamungkasoffice7308@gmail.com" class="hover:underline text-[#223A5E]">
+                            ajipamungkasoffice7308@gmail.com
+                        </a>
                     </li>
-                    <li>💬 WhatsApp:
-                        <a href="https://wa.me/6282329453188" target="_blank"
-                            class="hover:underline text-[#223A5E]">+62 823-2945-3188</a>
+                    <li class="flex items-center gap-2">
+                        <img src="{{ asset('image/icons/whatsapp.svg') }}" class="w-5 h-5">
+                        <a href="https://wa.me/6282329453188" target="_blank" class="hover:underline text-[#223A5E]">
+                            +62 823-2945-3188
+                        </a>
                     </li>
-                    <li>📱 Instagram:
-                        <a href="https://instagram.com/supplify" target="_blank"
-                            class="hover:underline text-[#223A5E]">@supplify</a>
+                    <li class="flex items-center gap-2">
+                        <img src="{{ asset('image/icons/instagram.svg') }}" class="w-5 h-5">
+                        <a href="https://www.instagram.com/supplify_project?igsh=MTR6a3VqZTgzZ21zYg==" target="_blank" class="hover:underline text-[#223A5E]">
+                            @supplify
+                        </a>
                     </li>
                 </ul>
             </div>
-
-            <div>
+            <div data-aos="fade-up" data-aos-delay="300" data-aos-duration="800">
                 <h3 class="font-bold mb-3">Jam Layanan</h3>
                 <p class="text-sm">Senin - Jumat: 08:00 - 17:00 WIB</p>
                 <p class="text-sm">Sabtu: 09:00 - 15:00 WIB</p>
                 <p class="text-sm">Minggu & Libur Nasional: Tutup</p>
             </div>
         </div>
-
-        <div class="bg-[#223A5E] text-white text-center py-4">
+        <div class="bg-[#1F2544] text-white text-center py-4"
+            data-aos="fade-in" data-aos-duration="1000">
             <p class="text-sm">© 2025 Supplify. All rights reserved.</p>
         </div>
     </footer>

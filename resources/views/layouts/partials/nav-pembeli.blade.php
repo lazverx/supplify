@@ -21,7 +21,7 @@
                     </span>
                     @endif
                 </a>
-                <a href="{{ route('pembeli.transaksi.index') }}" class="hover:text-blue-700">Transaksi</a>
+                <a href="{{ route('pembeli.transaksi.index') }}" class="hover:text-blue-700">Riwayat Pembelian</a>
                 {{-- <a href="{{ route('pembeli.produk.favorit') }}" class="hover:text-blue-700">Produk Favorit</a> --}}
             </div>
         </div>

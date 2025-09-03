@@ -54,7 +54,7 @@ class RegisteredUserController extends Controller
 
     event(new Registered($user));
 
-    return redirect()->route('login')->with('success', 'Pendaftaran berhasil. Silakan login.');
+    return redirect()->back()->with('success', 'Pendaftaran berhasil. Silakan login.');
 }
 
 }

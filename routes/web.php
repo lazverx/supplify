@@ -2,6 +2,7 @@
 
 // use App\Http\Controllers\CartController;
 
+use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\LogTransaksiController;
 use App\Http\Controllers\Admin\UserController;
@@ -17,9 +18,10 @@ use App\Http\Controllers\Pembeli\MarketplaceController;
 use App\Http\Controllers\Pembeli\TransaksiController as TransaksiPembeliController;
 use App\Http\Controllers\Pembeli\TransaksiSimulasiController;
 use App\Http\Controllers\Pembeli\CartController;
-use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\Pembeli\DashboardController as PembeliDashboardController;
 
 use App\Http\Controllers\Pembeli\ProfileController as PembeliProfileController;
+use App\Http\Controllers\Penjual\DashboardController as PenjualDashboardController;
 use App\Http\Controllers\Penjual\ProfileController as PenjualProfileController;
 
 
@@ -35,7 +37,6 @@ use App\Http\Controllers\Penjual\ProfileController as PenjualProfileController;
 */
 
 Route::get('/', [LandingpageController::class, 'index'])->name('landing');
-
 
 
 Route::get('/dashboard', function () {
@@ -79,7 +80,7 @@ Route::middleware(['auth', 'admin'])->prefix('admin')->name('admin.')->group(fun
 
 Route::middleware(['auth', 'penjual'])->prefix('penjual')->name('penjual.')->group(function () {
     // Dashboard
-    Route::get('/dashboard', fn() => view('penjual.dashboard'))->name('dashboard');
+    Route::get('/dashboard', [PenjualDashboardController::class, 'index'])->name('dashboard');
 
     // Produk - Pengajuan & Manajemen Produk
     Route::get('/produk', [PenjualProdukController::class, 'index'])->name('produk.index');
@@ -108,7 +109,7 @@ Route::middleware(['auth', 'penjual'])->prefix('penjual')->name('penjual.')->gro
 
 // Route pembeli
 Route::middleware(['auth', 'pembeli'])->prefix('pembeli')->name('pembeli.')->group(function () {
-    Route::get('/dashboard', fn() => view('pembeli.dashboard'))->name('dashboard');
+    Route::get('/dashboard', [PembeliDashboardController::class, 'index'])->name('dashboard');
 
     Route::get('/marketplace', [MarketplaceController::class, 'index'])->name('marketplace.index');
     Route::get('/marketplace/produk/{produk}', [MarketplaceController::class, 'show'])->name('marketplace.show');

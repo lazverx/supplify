@@ -11,9 +11,9 @@
             <div class="flex gap-6 font-semibold">
                 <a href="{{ route('penjual.dashboard') }}" class="hover:text-blue-700">Dashboard</a>
                 <a href="{{ route('penjual.profile.index') }}" class="hover:text-blue-700">Biodata</a>
-                <a href="{{ route('penjual.produk.index') }}" class="hover:text-blue-700">Produk Saya</a>
-                <a href="{{ route('penjual.produk.log') }}" class="hover:text-blue-700">Log Produk</a>
-                <a href="{{ route('penjual.transaksi.index') }}" class="hover:text-blue-700">Transaksi</a>
+                <a href="{{ route('penjual.produk.index') }}" class="hover:text-blue-700">Produk</a>
+                <a href="{{ route('penjual.produk.log') }}" class="hover:text-blue-700">Riwayat Produk</a>
+                <a href="{{ route('penjual.transaksi.index') }}" class="hover:text-blue-700">Riwayat Penjualan</a>
             </div>
         </div>
 

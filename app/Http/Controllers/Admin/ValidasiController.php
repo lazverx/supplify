@@ -16,7 +16,6 @@ class ValidasiController extends Controller
 
         // return redirect()->route('admin.produk.index')->with('success', 'Produk disetujui');
         return redirect()->back()->with('success', 'Produk berhasil disetujui.');
-
     }
 
     public function reject($id)
@@ -28,11 +27,16 @@ class ValidasiController extends Controller
         return redirect()->route('admin.produk.index')->with('error', 'Produk ditolak');
     }
 
-    public function log()
+    public function log(Request $request)
     {
-        $produk = Produk::whereIn('status', ['approved', 'rejected'])->latest()->paginate(10);
+        $query = Produk::whereIn('status', ['approved', 'rejected']);
+
+        if ($request->has('status') && in_array($request->status, ['approved', 'rejected'])) {
+            $query->where('status', $request->status);
+        }
+
+        $produk = $query->latest()->paginate(10);
+
         return view('admin.validasi.log', compact('produk'));
     }
 }
-
-

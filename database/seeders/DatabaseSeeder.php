@@ -22,7 +22,6 @@ class DatabaseSeeder extends Seeder
             AdminSeeder::class,
             PembeliSeeder::class,
             PenjualSeeder::class,
-            ProdukSeeder::class
         ]);
     }
 }

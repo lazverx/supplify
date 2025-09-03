@@ -134,8 +134,10 @@
         icon: 'success',
         title: 'Berhasil!',
         text: "{{ session('success') }}",
-        confirmButtonColor: '#3085d6',
-        confirmButtonText: 'OK'
+        timer: 1500,
+        confirmButtonColor: '#3085d6'
+    }).then(() => {
+        window.location.href = "{{ route('login') }}";
     });
 </script>
 @endif

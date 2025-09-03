@@ -39,8 +39,8 @@
                     alt="Tentang Kami"
                     class="rounded-lg shadow-lg w-[400px] h-auto object-cover">
             </div>
-            <div class="w-full ml-5 md:text-4xl text-white" data-aos="fade-left" data-aos-duration="1200">
-                <h2 class="text-3xl font-bold mb-3">About Us</h2>
+            <div class="w-full ml-5 mt-7 md:text-4xl text-white" data-aos="fade-left" data-aos-duration="1200">
+                <h2 class="text-3xl font-bold mb-3">Tentang Supplify</h2>
                 <p class="text-gray-300 text-base leading-relaxed mb-4">
                     Suplify adalah platform inovatif yang hadir untuk mempermudah proses pemenuhan kebutuhan Anda dengan cepat, aman, dan efisien.
                     Kami menghubungkan pengguna dengan berbagai produk berkualitas dari pemasok terpercaya, memastikan setiap transaksi berjalan lancar dan memuaskan.
@@ -52,15 +52,52 @@
         </div>
     </div>
 
+    {{-- Produk Terlaris --}}
+    <section id="produk" class="bg-[#1F2544] px-6 md:px-10 py-12 mt-8 rounded-[10px] mb-8 mx-8" data-aos="fade-up" data-aos-duration="1000">
+        <div class="max-w-7xl mx-auto">
+            <div class="text-white mb-6 text-center">
+                <h2 class="text-2xl md:text-4xl font-extrabold">Produk Terlaris</h2>
+                <p class="text-gray-200 text-base">Favorit nomor satu, kualitas terjamin, terbukti paling dicari.</p>
+            </div>
+
+            <div class="swiper mySwiper">
+                <div class="swiper-wrapper">
+                    @forelse ($produks as $produk)
+                    <div class="swiper-slide flex justify-center">
+                        <div class="card bg-white rounded-xl p-6 flex flex-col items-center shadow-lg w-60">
+                            <img src="{{ asset('storage/' . $produk->foto) }}"
+                                alt="{{ $produk->nama_produk }}"
+                                class="w-40 h-40 object-contain rounded-md mb-4 transform hover:scale-105 transition duration-300">
+                            <h3 class="text-gray-800 font-semibold text-base text-center">{{ $produk->nama_produk }}</h3>
+                        </div>
+                    </div>
+                    @empty
+                    <div class="text-center text-white w-full py-8">Belum ada data terlaris.</div>
+                    @endforelse
+                </div>
+            </div>
+        </div>
+
+        {{-- Tombol Cari Lebih Banyak --}}
+        <div class="text-center mt-6">
+            <a href="{{ route('pembeli.marketplace.index') }}"
+                class="inline-block px-6 py-3 bg-[#F2613F] text-white font-semibold rounded-lg shadow-md hover:bg-[#d94c2e] transition">
+                Cari Lebih Banyak
+            </a>
+        </div>
+    </section>
+
+
+
     {{-- Contoh Kreasi Produk --}}
     <section class="bg-[#1F2544] rounded-[10px] p-6 md:p-8 mb-8 mx-8" data-aos="fade-up" data-aos-duration="1000">
         <h2 class="text-white font-bold text-2xl md:text-3xl mb-10 text-center" data-aos="fade-down" data-aos-duration="900">
-            contoh kreasi produk
+            Contoh Kreasi Produk
         </h2>
         <div class="grid md:grid-cols-2 gap-6">
 
             {{-- Kulit sintetis jadi Sabuk --}}
-            <div class="bg-[#FAE3AC] rounded-lg p-6 flex flex-col items-center text-center" data-aos="flip-left" data-aos-duration="1000">
+            <div class="bg-[#FAE3AC] rounded-lg p-6 flex flex-col items-center text-center" data-aos="fade-in" data-aos-duration="1000">
                 <h3 class="text-xl font-semibold text-gray-800 mb-4">Kulit sintetis</h3>
                 <div class="flex items-center gap-4">
                     <img src="{{ asset('image/leather.jpg') }}" class="w-32 h-32 object-cover rounded-md">
@@ -75,7 +112,7 @@
             </div>
 
             {{-- Benang jadi Boneka Rajut --}}
-            <div class="bg-[#FAE3AC] rounded-lg p-6 flex flex-col items-center text-center" data-aos="flip-right" data-aos-duration="1000">
+            <div class="bg-[#FAE3AC] rounded-lg p-6 flex flex-col items-center text-center" data-aos="fade-in" data-aos-duration="1000">
                 <h3 class="text-xl font-semibold text-gray-800 mb-4">Benang wol</h3>
                 <div class="flex items-center gap-4">
                     <img src="{{ asset('image/benang.png') }}" class="w-32 h-32 object-cover rounded-md">
@@ -91,6 +128,41 @@
 
         </div>
     </section>
+
+    <!-- Statistik -->
+    <section class="bg-[#1F2544] text-white py-12 px-6 mx-8 mb-8 rounded-lg" data-aos="fade-up">
+        <div class="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
+
+            <!-- Kiri: Deskripsi -->
+            <div data-aos="fade-right" data-aos-delay="100">
+                <h2 class="text-3xl font-bold mb-4">Statistik & Kontribusi Supplify</h2>
+                <p class="text-gray-300 leading-relaxed mb-4">
+                    Supplify terus berkembang berkat kontribusi dari para <span class="font-semibold">penjual</span>,
+                    <span class="font-semibold">pembeli (UMKM)</span>, dan ratusan <span class="font-semibold">produk</span> yang diajukan.
+                    Data berikut menunjukkan perkembangan ekosistem Supplify.
+                </p>
+                <p class="text-gray-300 leading-relaxed">
+                    Statistik ini mencerminkan bagaimana platform kami menjadi jembatan penting dalam
+                    mendorong pertumbuhan bisnis berkelanjutan.
+                </p>
+            </div>
+
+            <!-- Kanan: Chart -->
+            <div class="bg-white p-6 rounded-xl shadow-md" data-aos="fade-left" data-aos-delay="200">
+                <canvas id="supplifyStatsChart"></canvas>
+            </div>
+
+        </div>
+    </section>
+
+    {{-- Our Location --}}
+    <section class="bg-[#1F2544] rounded-[10px] p-6 md:p-8 mb-8 mx-8" data-aos="fade-up" data-aos-duration="1000">
+        <h2 class="text-white font-bold text-2xl md:text-3xl mb-6 text-center">
+            Lokasi
+        </h2>
+        <div id="map" class="w-full h-[400px] rounded-lg shadow-lg"></div>
+    </section>
+
 
 
     {{-- Footer --}}
@@ -118,7 +190,7 @@
                     </li>
                     <li class="flex items-center gap-2">
                         <img src="{{ asset('image/icons/instagram.svg') }}" class="w-5 h-5">
-                        <a href="https://instagram.com/supplify" target="_blank" class="hover:underline text-[#223A5E]">
+                        <a href="https://www.instagram.com/supplify_project?igsh=MTR6a3VqZTgzZ21zYg==" target="_blank" class="hover:underline text-[#223A5E]">
                             @supplify
                         </a>
                     </li>
@@ -143,3 +215,41 @@
         AOS.init();
     </script>
 </x-app-layout>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script>
+    const ctx = document.getElementById('supplifyStatsChart').getContext('2d');
+    new Chart(ctx, {
+        type: 'bar',
+        data: {
+            labels: ['Perusahaan (Penjual)', 'Produk Diajukan', 'UMKM (Pembeli)'],
+            datasets: [{
+                label: 'Jumlah',
+                data: @json([$totalPenjual, $totalProduk, $totalPembeli]),
+                backgroundColor: ['#F59E0B', '#3B82F6', '#10B981'],
+                borderRadius: 8,
+            }]
+        },
+        options: {
+            responsive: true,
+            plugins: {
+                legend: {
+                    display: false
+                }
+            },
+            scales: {
+                y: {
+                    beginAtZero: true,
+                    ticks: {
+                        color: '#374151'
+                    }
+                },
+                x: {
+                    ticks: {
+                        color: '#374151'
+                    }
+                }
+            }
+        }
+    });
+</script>

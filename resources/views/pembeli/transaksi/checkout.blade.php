@@ -1,6 +1,6 @@
 <x-app-layout>
     <x-slot name="header">
-        <h2 class="font-bold text-xl text-gray-800 leading-tight">
+        <h2 class="font-bold text-xl text-white leading-tight">
             Checkout
         </h2>
     </x-slot>
@@ -63,17 +63,22 @@
                 <input type="hidden" name="alamat_pengiriman" value="{{ $user->profile->alamat ?? 'Belum diisi' }}">
 
                 <div class="border-t pt-4 mt-4 space-y-2">
+                    {{-- Stepper Jumlah --}}
                     <div class="mb-4">
                         <label class="block text-sm font-medium">Jumlah</label>
-                        <input
-                            type="number"
-                            id="jumlah"
-                            name="jumlah"
-                            min="1"
-                            max="{{ $produk->stok }}"
-                            value="1"
-                            class="mt-1 block w-full rounded border px-3 py-2"
-                            required>
+                        <div class="flex items-center mt-2">
+                            <!-- Tombol minus -->
+                            <button type="button" id="btn-minus"
+                                class="px-3 py-2 bg-blue-500 text-white rounded-l hover:bg-blue-600">-</button>
+
+                            <!-- Input jumlah -->
+                            <input type="number" id="jumlah" name="jumlah" min="1" max="{{ $produk->stok }}" value="1"
+                                class="w-16 text-center border-t border-b" readonly>
+
+                            <!-- Tombol plus -->
+                            <button type="button" id="btn-plus"
+                                class="px-3 py-2 bg-blue-500 text-white rounded-r hover:bg-blue-600">+</button>
+                        </div>
                     </div>
 
                     <p class="flex justify-between text-gray-700">
@@ -97,22 +102,16 @@
                     Bayar Sekarang
                 </button>
 
-
                 @if ($biodataIncomplete)
-                <div class="mt-4 text-sm text-red-600">
-                    ⚠️ Lengkapi biodata Anda dulu di
-                    <a href="{{ route('pembeli.profile.edit') }}" class="text-blue-600 underline">halaman profil</a>.
-                </div>
+                    <div class="mt-4 text-sm text-red-600">
+                        ⚠ Lengkapi biodata Anda dulu di
+                        <a href="{{ route('pembeli.profile.edit') }}" class="text-blue-600 underline">halaman profil</a>.
+                    </div>
                 @endif
-
-
-
-
             </div>
         </form>
     </div>
 </x-app-layout>
-
 
 {{-- SweetAlert2 --}}
 <script src="{{ asset('js/sweetalert2.all.min.js') }}"></script>
@@ -155,13 +154,11 @@
 </script>
 @endif
 
-
-{{-- Script interaktif untuk metode pembayaran & total harga --}}
+{{-- Script interaktif --}}
 <script>
     document.addEventListener('DOMContentLoaded', () => {
         const root = document.getElementById('pembeli-checkout');
 
-        // ambil data dari atribut HTML (aman untuk editor)
         const hargaSatuan = Number(root?.dataset.harga ?? 0);
         const stok = Number(root?.dataset.stok ?? 0);
 
@@ -170,7 +167,9 @@
         const jumlahInput = document.getElementById('jumlah');
         const totalHargaText = document.getElementById('total-harga');
 
-        // safety checks
+        const btnMinus = document.getElementById('btn-minus');
+        const btnPlus = document.getElementById('btn-plus');
+
         if (!jumlahInput || !totalHargaText || !ringkasanText) return;
 
         // update metode pembayaran
@@ -186,15 +185,31 @@
             if (qty < 1) qty = 1;
             if (qty > stok) {
                 qty = stok;
-                jumlahInput.value = stok; // clamp ke stok maksimum
+                jumlahInput.value = stok;
             }
             const total = hargaSatuan * qty;
             totalHargaText.textContent = 'Rp ' + total.toLocaleString('id-ID');
         };
 
-        jumlahInput.addEventListener('input', updateTotal);
+        // tombol minus
+        btnMinus.addEventListener('click', () => {
+            let val = parseInt(jumlahInput.value, 10) || 1;
+            if (val > 1) {
+                jumlahInput.value = val - 1;
+                updateTotal();
+            }
+        });
 
-        // trigger awal supaya total muncul sesuai default
+        // tombol plus
+        btnPlus.addEventListener('click', () => {
+            let val = parseInt(jumlahInput.value, 10) || 1;
+            if (val < stok) {
+                jumlahInput.value = val + 1;
+                updateTotal();
+            }
+        });
+
+        // trigger awal
         updateTotal();
     });
 </script>
